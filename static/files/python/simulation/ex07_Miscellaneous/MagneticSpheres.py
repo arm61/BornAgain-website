@@ -4,7 +4,6 @@ Simulation demo: magnetic spheres in substrate
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-
 # Magnetization of the particle's material (A/m)
 magnetization_particle = ba.kvector_t(0.0, 0.0, 1e7)
 
