@@ -63,7 +63,7 @@ Furthermore, the reflectivity data is scaled such that its maximum is unity.
 
 {{< galleryscg >}}
 {{< figscg src="/files/simulated/SpinAsymmetry1.png" width="350px" caption="Reflectivity">}}
-{{< figscg src="/files/simulated/SpinAsymmetry2.png" width="350px" caption="Spin Asymmetry">}}
+{{< figscg src="/files/simulated/PolarizedSpinAsymmetry.png" width="350px" caption="Spin Asymmetry">}}
 {{< /galleryscg >}}
 
 Here is the complete example:
