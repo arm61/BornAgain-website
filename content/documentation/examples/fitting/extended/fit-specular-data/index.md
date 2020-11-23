@@ -16,7 +16,7 @@ layers. The reference data was obtained under the following assumptions:
 * Thickness value was $3 \, nm$
 
 {{< galleryscg >}}
-{{< figscg src="fit-specular-data.png" width="600px" caption="Fit window">}}
+{{< figscg src="/files/simulated/FitSpecularBasics.png" width="600px" caption="Fit window">}}
 {{< /galleryscg >}}
 
 The fit view produced by running the fitting script is shown in the picture.
