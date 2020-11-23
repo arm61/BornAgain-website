@@ -13,8 +13,8 @@ In particular, the magnetization is initially set to zero, such that the spin as
 With the initial parameters, we obtain the following reflectivity and spin-asymmetry curves:
 
 {{< galleryscg >}}
-{{< figscg src="/files/simulated/SpinAsymmetryInitial1.png" width="350px" caption="Reflectivity">}}
-{{< figscg src="/files/simulated/SpinAsymmetryInitial2.png" width="350px" caption="Spin Asymmetry">}}
+{{< figscg src="/files/manually-simulated/SpinAsymmetryInitial1.png" width="350px" caption="Reflectivity">}}
+{{< figscg src="/files/manually-simulated/SpinAsymmetryInitial2.png" width="350px" caption="Spin Asymmetry">}}
 {{< /galleryscg >}}
 
 
@@ -76,7 +76,7 @@ python3 PolarizedSpinAsymmetryFit.py fit
 we get the result
 
 {{< galleryscg >}}
-{{< figscg src="/files/simulated/SpinAsymmetry1.png" width="350px" caption="Reflectivity">}}
+{{< figscg src="/files/manually-simulated/SpinAsymmetry1.png" width="350px" caption="Reflectivity">}}
 {{< figscg src="/files/simulated/PolarizedSpinAsymmetry.png" width="350px" caption="Spin Asymmetry">}}
 {{< /galleryscg >}}
 
