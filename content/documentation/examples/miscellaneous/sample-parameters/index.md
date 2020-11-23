@@ -32,10 +32,10 @@ MultiLayer ('CrossCorrelationLength':0 'ExternalFieldX':0 'ExternalFieldY':0 'Ex
     Layer1
 ```
 
-The top MultiLayer object is composed of three children, namely Layer #0, Layer Interface #0 and <nobr>Layer #1</nobr>. 
-The children objects might themselves also be decomposed into tree-like structures. 
+The top MultiLayer object is composed of three children, namely Layer #0, Layer Interface #0 and <nobr>Layer #1</nobr>.
+The children objects might themselves also be decomposed into tree-like structures.
 For example, Layer #0 contains a ParticleLayout object, which holds information related to the two
-types of particles populating the layer. All numerical values used during the sample construction (thickness of layers, size of particles, etc.) are part of the 
+types of particles populating the layer. All numerical values used during the sample construction (thickness of layers, size of particles, etc.) are part of the
 same tree structure. These values are registered in the sample parameter pool using the name composed of the corresponding nodes’ names.
 A list of the names and values of all registered sample’s parameters can be displayed using the command
 
@@ -95,11 +95,11 @@ sample.setParameterValue("*/Prism3/*", 10.0*nm)
 
 {{< /highlight >}}
 
-Example below demonstrates how to create a sample with fixed parameters and then change these parameters on the fly during runtime. 
+Example below demonstrates how to create a sample with fixed parameters and then change these parameters on the fly during runtime.
 Four simulations are performed one after another. Parameters of the sample are adjusted in between using different matching criteria.
 
 {{< galleryscg >}}
-{{< figscg src="/files/simulated/SampleParametersIntro.png" width="600px" caption="Intensity images">}}
+{{< figscg src="/files/simulated/SimulationParameters.png" width="600px" caption="Intensity images">}}
 {{< /galleryscg >}}
 
 {{< highlightfile file="/static/files/python/simulation/ex07_Miscellaneous/SimulationParameters.py" language="python" >}}
