@@ -157,8 +157,8 @@ def get_simulation(scan_size=500):
 
 {{< /highlight >}}
 
-In this code snippet we have 1. initialized a reflectometry specular simulation with `ba.SpecularSimuation()`, 
-2. defined the type of scan to be used for the simulation, and 
+In this code snippet we have 1. initialized a reflectometry specular simulation with `ba.SpecularSimuation()`,
+2. defined the type of scan to be used for the simulation, and
 3. use that scan for the simulation just created. The general sintax to define a scan is:
 
 ```python
@@ -167,7 +167,7 @@ simulation.setScan(scan)
 ```
 
 where the `wavelength` of the incident beam is in nanometers;
-the initial and final angles to be swept by the beam, `angle_min` and `angle_max`, are in radians; 
+the initial and final angles to be swept by the beam, `angle_min` and `angle_max`, are in radians;
 and `n_bins` defines the number of points to be uniformly sampled between `angle_min` and `angle_max`.
 
 One can express the input arguments in degrees and angstroms via the conversion factors `ba.deg` and `ba.angstrom`.
@@ -216,7 +216,7 @@ $ python BasicSpecularSimulation.py
 
 The following image should be displayed on the screen
 
-{{< figscg src="BasicSpecResult.png" width="500" class="center">}}
+{{< figscg src="/files/simulated/BasicSpecularSimulation.png" width="500" class="center">}}
 
 ### Further topics
 
