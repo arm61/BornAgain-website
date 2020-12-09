@@ -11,6 +11,6 @@ scattering experiment.
 
 In this section we will give a brief overview of the concept and describe how to setup and perform fits in BornAgain using the Python API.
 For a brief overview about fitting using the graphical user interface 
-please see [here]({{% relref "documentation/running-gui/gui-fitting" %}}).
+please see [here]({{% relref "documentation/gui/gui-fitting" %}}).
 
 {{% children depth="2" %}}

@@ -20,7 +20,7 @@ The BornAgain installation package for Windows 7, 8 and 10 can be downloaded fro
 After downloading the installer, double click the `.exe` file and follow the instructions on the screen.
 
 {{< figscg src="/img/bornagainapp_32.png" class="float-left">}} Use the BornAgain icon located on the desktop to start the GUI.
-Please refer to [Using graphical user interface]({{% relref "documentation/running-gui" %}}) section for a basic overview of GUI functionality.
+Please refer to [Using graphical user interface]({{% relref "documentation/gui" %}}) section for a basic overview of GUI functionality.
 <p style="clear: both;">
 
 ### Install Python
