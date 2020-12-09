@@ -43,7 +43,7 @@ simulation settings. The user then runs the simulation by executing the script i
 {{< figscg src="nodes_pycharm_ide.png" width="500" class="center">}}
 
 At this point we assume that the framework is installed as explained in the
-[Installation instructions]({{% relref "documentation/getting-started/installation" %}})
+[Installation instructions]({{% relref "documentation/installation" %}})
 and that the user is able to run Python examples from the installation directory.
 In the next sections we go through a complete example of simulation and fitting using BornAgain.
 

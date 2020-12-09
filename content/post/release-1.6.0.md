@@ -27,7 +27,7 @@ During this release we have mainly worked on providing a beta version for the fi
 
 **New tutorials:**
 
-1. [Usage of beta version of fitting]({{< relref "documentation/running-gui/gui-fitting/index.md" >}})
+1. [Usage of beta version of fitting]({{< relref "documentation/gui/gui-fitting/index.md" >}})
 
 More details on our issue [tracker](http://apps.jcns.fz-juelich.de/redmine/versions/32).
 

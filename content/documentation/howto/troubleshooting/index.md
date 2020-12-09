@@ -120,7 +120,7 @@ CMake Error at GUI/CMakeLists.txt:18 (find_package):
 
 The error message can also complain about "Qt5Widgets" instead of "Qt5Designer".
 
-First, make sure that all Qt5 libraries are installed as required in the [installation section]({{% relref "documentation/getting-started/installation/linux-detailed/third-party.md" %}}).
+First, make sure that all Qt5 libraries are installed as required in the [installation section]({{% relref "documentation/installation/linux-detailed/third-party.md" %}}).
 
 If this is the case, a first possible cause for this to happen, is that `cmake` cannot find the cmake config files for the required Qt5 modules, because it doesn't know the location. This can be fixed by adding the path to the Qt5 binaries to the `PATH` environment variable:
 

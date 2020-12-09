@@ -20,7 +20,7 @@ The BornAgain installation package for Windows 7, 8 and 10 can be downloaded fro
 After downloading the installer, double click the `.exe` file and follow the instructions on the screen.
 
 {{< figscg src="/img/bornagainapp_32.png" class="float-left">}} Use the BornAgain icon located on the desktop to start the GUI.
-Please refer to [Using graphical user interface]({{% relref "documentation/running-gui" %}}) section for a basic overview of GUI functionality.
+Please refer to [Using graphical user interface]({{% relref "documentation/gui" %}}) section for a basic overview of GUI functionality.
 <p style="clear: both;">
 
 ### Install Python
@@ -33,19 +33,19 @@ The list of possible options is given on the [SciPy installation website](http:/
 
 For unexperienced users we recommend the [Anaconda Python Distribution](http://www.anaconda.com) as an all-in-one installer.
 
-+ Please follow the [Install Python with the Anaconda installer]({{% relref "documentation/getting-started/installation/windows/python-anaconda" %}})
++ Please follow the [Install Python with the Anaconda installer]({{% relref "documentation/installation/windows/python-anaconda" %}})
 step-by-step instruction.
 
 {{% collapse title="For advanced users" id="advanced-users" %}}
 Advanced users might find it easier (and much faster) to install Python directly from their <a href="https://www.python.org/downloads">main website</a>
 and then install the necessary dependencies `matplotlib` and `numpy` from the command line.
-In this case, please follow our [Manual Python installation]({{% relref "documentation/getting-started/installation/windows/python-original" %}}) instruction.
+In this case, please follow our [Manual Python installation]({{% relref "documentation/installation/windows/python-original" %}}) instruction.
 {{% /collapse %}}
 
 ### Troubleshooting
 
 If you are experiencing problems while running BornAgain Python scripts please refer to the following tutorial.
 
-+ [Python troubleshooting]({{% relref "documentation/getting-started/installation/windows/python-troubleshooting" %}}).
++ [Python troubleshooting]({{% relref "documentation/installation/windows/python-troubleshooting" %}}).
 
 

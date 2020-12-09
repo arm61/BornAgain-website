@@ -8,7 +8,7 @@ weight = 20
 In this tutorial we explain how to run BornAgain Python examples using `PyCharm` - a free and multi-platform Python integrated development environment, which enables one to work with Python code in a convenient manner.
 
 At this point we assume that the user has already installed BornAgain and a Python distribution as explained in
-[Python installation section]({{% relref "documentation/getting-started/installation/windows/python-original" %}}).
+[Python installation section]({{% relref "documentation/installation/windows/python-original" %}}).
 
 ### Download and install PyCharm
 
@@ -36,7 +36,7 @@ Click on `Existing interpreter` and proceed with the interpreter selection.
 {{< figscg src="python-pycharm-project3.PNG" class="center" width="450px">}}
 
 In the new window, select `System interpreter`. This will let you select the system interpreter you have installed already
-during the [Python installation]({{% relref "documentation/getting-started/installation/windows/python-original" %}}) phase.
+during the [Python installation]({{% relref "documentation/installation/windows/python-original" %}}) phase.
 
 {{< figscg src="python-pycharm-project5.PNG" class="center" width="450px">}}
 
