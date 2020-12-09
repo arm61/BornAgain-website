@@ -10,7 +10,7 @@ This is a community driven, lightweighted and open-source editor from Microsoft,
 can be extremely handy in any kind of script-related and code-related activity.
 
 At this point we assume that the user has already installed BornAgain and a Python distribution as explained in
-[Python installation section]({{% relref "documentation/getting-started/installation/windows/python-original" %}}).
+[Python installation section]({{% relref "documentation/installation/windows/python-original" %}}).
 
 ### Download and install VSCode
 

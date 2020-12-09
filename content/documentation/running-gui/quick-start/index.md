@@ -1,6 +1,6 @@
 +++
 title = "Quick Start"
-weight = 20
+weight = 10
 +++
 
 ## Quick Start
@@ -28,7 +28,7 @@ Drag the predefined standard sample with the name "Cylinder and Prisms"  from th
 
 {{< figscg src="gui_quickstart2a.png" width="600px" class="center">}}
 
-You will get a sample representing a multilayer with two types of particles on top of a substrate. 
+You will get a sample representing a multilayer with two types of particles on top of a substrate.
 
 {{< figscg src="gui_quickstart2b.png" width="600px" class="center">}}
 

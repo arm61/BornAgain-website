@@ -8,7 +8,7 @@ weight = 20
 In this instruction we explain how to install Python and all the necessary Python packages
 to be able to run BornAgain simulations via Python scripting.
 
-We advertise this as an instruction for advanced users. However, it provides a much more lightweigth and cleaner environment than the bulky Python installation using Anaconda explained [here]({{% relref "documentation/getting-started/installation/windows/python-anaconda" %}}).
+We advertise this as an instruction for advanced users. However, it provides a much more lightweigth and cleaner environment than the bulky Python installation using Anaconda explained [here]({{% relref "documentation/installation/windows/python-anaconda" %}}).
 
 
 ## Download Python from the official web site
@@ -110,5 +110,5 @@ This kind of manual launching of Python scripts is not very convenient for regul
 
 We have provided  two more step-by-step tutorials to explain how to run BornAgain examples in a convenient manner using one of two integrated development environments.
 
-+ [Using the VSCode editor.]({{% relref "documentation/getting-started/installation/windows/python-original/python-vscode" %}})
-+ [Using the PyCharm IDE.]({{% relref "documentation/getting-started/installation/windows/python-original/python-pycharm" %}})
++ [Using the VSCode editor.]({{% relref "documentation/installation/windows/python-original/python-vscode" %}})
++ [Using the PyCharm IDE.]({{% relref "documentation/installation/windows/python-original/python-pycharm" %}})

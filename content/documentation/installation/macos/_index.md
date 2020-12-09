@@ -6,7 +6,7 @@ weight = 21
 ## Installation on MacOS
 
 For Mac OS X, we provide a 64-bit binary .dmg installer for High Sierra (10.13) or above and also support build and installation from source. To build BornAgain from source by yourself follow the 
-[Installation on Linux]({{% relref "documentation/getting-started/installation/linux-detailed" %}}) section.
+[Installation on Linux]({{% relref "documentation/installation/linux-detailed" %}}) section.
 
 The rest of this section explains how to install BornAgain using the `.dmg` installer.
 

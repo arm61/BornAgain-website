@@ -44,7 +44,7 @@ matches the Python installation on your system.
 
 If you have installed Python using the Anaconda installer, please make sure that you are using the `Anaconda Prompt`, `Anaconda Navigator` and
 can run BornAgain scripts from the command line, as explained in 
-[Install Python with the Anaconda installer]({{% relref "documentation/getting-started/installation/windows/python-anaconda" %}}).
+[Install Python with the Anaconda installer]({{% relref "documentation/installation/windows/python-anaconda" %}}).
 
 <hr>
 
@@ -52,4 +52,4 @@ can run BornAgain scripts from the command line, as explained in
 {{% anchor "is-native-python" %}}
 
 If you have installed Python manually using the installer from [Python.org](https://www.python.org/download), try to run it from the `Windows command prompt`, as explained in
-[Manual Python installation]({{% relref "documentation/getting-started/installation/windows/python-original" %}}).
+[Manual Python installation]({{% relref "documentation/installation/windows/python-original" %}}).
