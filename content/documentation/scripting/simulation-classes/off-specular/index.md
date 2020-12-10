@@ -7,6 +7,6 @@ weight = 16
 
 An off-specular simulation is created by the command
 ```
-ba.offSpecSimulation()
+ba.offSpecularSimulation()
 ```
 Usage is illustrated by the example [Off-Specular]({{% relref "documentation/examples/beam-and-detector/offspecular-simulation" %}}) in the examples section.
