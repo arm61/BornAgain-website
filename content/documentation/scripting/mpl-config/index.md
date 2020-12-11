@@ -17,7 +17,7 @@ When running BornAgain through Python sripts, Matplotlib is invoked
 either directly, or indirectly through BornAgain functions like
 `plot_simulation_result`.
 For direct invocation, see the [Matplotlib documentation](https://matplotlib.org/contents.html).
-Here we are concerned with indirect inocation through standard BornAgain plot functions.
+Here we are concerned with indirect invocation through standard BornAgain plot functions.
 
 The function `plot_simulation_result`, and a number of lower-level functions,
 are all implemented in the Python module
@@ -68,6 +68,6 @@ recommended in the
 
 ![Matplotlib perceptually uniform sequential color maps](/img/matplotlib_pus_colormaps.png "Perceptually uniform sequential color maps from Matplotlib.")
 
-Note that this choice of "inferno" is hard-coded,
-and overrides the "cmap" setting from Matplotlib ressources.
+Note that our choice of "inferno" is hard-coded,
+and overrides the `cmap` setting from Matplotlib ressources.
 It can however be overridden by a keyword argument, like `cmap='jet'`.
