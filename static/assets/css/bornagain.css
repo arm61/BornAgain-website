@@ -70,7 +70,7 @@ a.navbar-brand {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
-  
+
   .important-news a {
     color: #2a6783;
     text-decoration: underline;
@@ -86,8 +86,8 @@ a.navbar-brand {
       #ededed 20px
     );
   }
-  
-  
+
+
 /* ------------------------------------------------------------- *
  *  Styling for download page
 /* ------------------------------------------------------------- */
@@ -192,4 +192,12 @@ a.linktofile[href$='.gz'], [href$='.zip'] {
 
 table {
 margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------- *
+ *  ad-hoc JWu dec20
+/* ------------------------------------------------------------- */
+
+code {
+    font-size: 1rem;
 }
