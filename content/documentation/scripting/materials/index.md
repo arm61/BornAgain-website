@@ -7,6 +7,7 @@ weight = 20
 
 The refractive properties of a homogeneous `Material` can be specified
 through two different functions:
+
 * `HomogeneousMaterial`, based on the refractive index,
 * `MaterialBySLD`, based on the scattering length density (SLD).
 
