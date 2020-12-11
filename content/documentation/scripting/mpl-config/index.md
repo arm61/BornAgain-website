@@ -31,7 +31,7 @@ These functions support the keyword arguments
 * `ylabel`,
 * `zlabel`,
 * `cmap`: color map, see below,
-* `aspect`: [aspect ratio](https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_aspect.html), can be 'auto', 'equal', or a number,
+* `aspect`: [aspect ratio](https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_aspect.html), default is 'auto', other possible values are 'equal', or a number,
 * `noshow`: if `True`, run Matplotlib in batch mode, without displaying a plot.
 
 If a simulation script `sim.py` contains code like
