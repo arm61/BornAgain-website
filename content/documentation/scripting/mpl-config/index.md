@@ -24,14 +24,15 @@ are all implemented in the Python module
 [`plot_utils`](https://github.com/scgmlz/BornAgain/blob/master/Wrap/python/plot_utils.py)
 that is part of the `bornagain` module.
 These functions support the keyword arguments
-- `intensity_min`
-- `intensity_max`
-- `xlabel`
-- `ylabel`
-- `zlabel`
-- `cmap`: color map, see below
-- `aspect`: [aspect ratio](https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_aspect.html), can be 'auto', 'equal', or a number
-- `noshow`: if `True`, run Matplotlib in batch mode, without displaying a plot
+
+* `intensity_min`,
+* `intensity_max`,
+* `xlabel`,
+* `ylabel`,
+* `zlabel`,
+* `cmap`: color map, see below,
+* `aspect`: [aspect ratio](https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_aspect.html), can be 'auto', 'equal', or a number,
+* `noshow`: if `True`, run Matplotlib in batch mode, without displaying a plot.
 
 If a simulation script `sim.py` contains code like
 ```python
