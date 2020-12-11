@@ -12,7 +12,7 @@ Scattering from a monodisperse distribution of particles, whose form factor is d
 * These particles are distributed on a substrate.
 * There is no interference between the scattered waves.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="CustomFormFactor_setup.jpg" width="350px" caption="Real-space model">}}

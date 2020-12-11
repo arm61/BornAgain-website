@@ -17,7 +17,7 @@ Scattering from a multilayered sample with correlated roughness.
   * a lateral correlation length $\xi$ of $5$ nm,
   * a cross correlation length $\xi\_{\perp}$ equal to $10^{-4}$ nm.
 * The incident beam is characterized by a wavelength of $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 **Note:**
 

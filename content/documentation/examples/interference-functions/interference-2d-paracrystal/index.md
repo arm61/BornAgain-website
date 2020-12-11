@@ -13,7 +13,7 @@ Scattering from monodisperse cylinders distributed along a two-dimensional squar
   * a lattice length of $20$ nm along both axes of the reference Cartesian frame,
   * a damping length equal to $0$,
   * "coherent' domains with a size of $20$ $\mu$m along the axes of the reference Cartesian frame.
-* The incident beam is characterized by a wavelength of $1$ $\unicode{x212B}$ and angles $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.  
+* The incident beam is characterized by a wavelength of $1$ $\unicode{x212B}$ and angles $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.  
 
 **Note:**
 

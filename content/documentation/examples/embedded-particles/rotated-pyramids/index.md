@@ -14,7 +14,7 @@ This example illustrates how the in-plane rotation of non-radially symmetric par
 * These particles are rotated in the $(x, y)$ plane by $45^{\circ}$.
 * There is no interference between the scattered waves.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="RotatedPyramids_setup.jpg" width="350px" caption="Real-space model">}}

@@ -11,7 +11,7 @@ The dimensions of the object are chosen only in order to get a characteristic si
 
 * The simulation is run using the Born approximation. There is no substrate and also no interference between the scattered waves.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are equal to $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are equal to $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
   
 {{< galleryscg >}}
 {{< figscg src="AllFormFactorsAvailable_setup.jpg" width="350px" caption="Real-space models">}}

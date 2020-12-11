@@ -13,7 +13,7 @@ Scattering from two layers of spheres distributed along a hexagonal close packed
   * the vertical stacking is done by specifying the position of a "seeding" particle for each layer:
     $(0,0,0)$ for the first layer and $(R,R,\sqrt{3}R)$ for the second layer, $R$ being the radius of the spherical particle.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="HexagonalLatticesWithBasis_setup.jpg" width="350px" caption="Real-space model">}}

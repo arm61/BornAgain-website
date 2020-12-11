@@ -10,7 +10,7 @@ Here we show how to set a finite blur.
 
 * The detector resolution function is a two-dimensional Gaussian with the same width for the $x$ and $y$ axes: $\sigma\_x = \sigma\_y = 0.0025^{\circ}$.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\sigma_{\alpha\_i} = \sigma\_{\phi\_i} = 0.1^{\circ}$.
+* The incident angles are $\sigma_{\alpha\_i} = \sigma\_{\varphi\_i} = 0.1^{\circ}$.
 
 Besides this, the example is a DWBA simulation for our standard sample model,
  [Cylinders in DWBA]({{% ref-example "embedded-particles/cylinders-dwba" %}})

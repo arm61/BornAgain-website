@@ -13,7 +13,7 @@ Scattering from cylindrical particles distributed along a square lattice.
 * The main axes are parallel to the $x$-axis and $y$-axis of the reference Cartesian frame, respectively.
 * The lattice is initialized by placing a cylinder at the origin.
 * The incident beam is characterized by a wavelength of $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="Interference2DSquareLattice_setup.jpg" width="350px" caption="Real-space model">}}

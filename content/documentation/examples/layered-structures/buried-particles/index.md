@@ -12,7 +12,7 @@ Scattering from a sample containing spherical embedded particles.
 * They are placed vertically in the middle of the intermediate layer. The depth to place the spheres is measured between the top of the layer and the bottom of the particles.
 * There is no interference between the scattered waves. The horizontal distribution of the particles is diluted.
 * The wavelength is equal to $1.5$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.15 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.15 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="BuriedParticles_setup.jpg" width="350px" caption="Real-space model">}}

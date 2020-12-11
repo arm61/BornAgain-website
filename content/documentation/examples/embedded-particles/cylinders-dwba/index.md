@@ -11,7 +11,7 @@ This example is similar to the simulation [Cylinders in Born Approximation]({{% 
 
 * The distribution of cylinders is monodisperse with heights and radii of $5$ nm.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are equal to $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are equal to $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 * No interference effects from inter-particle correlations (dilute-particles approximation).
 
 {{< galleryscg >}}

@@ -9,7 +9,7 @@ By default, the incident beam is perfectly monochromatic and collimated.
 Here we show how to set finite distributions of wavelengths and of incident angles.
 
 * The wavelength follows a log-normal distribution around the mean value of $1$ $\unicode{x212B}$ with a scale parameter equal to $0.1$.
-* Both incident angles follow a Gaussian distribution around the average values $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$, respectively and $\sigma_{\alpha\_i} = \sigma\_{\phi\_i} = 0.1^{\circ}$.
+* Both incident angles follow a Gaussian distribution around the average values $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$, respectively and $\sigma_{\alpha\_i} = \sigma\_{\varphi\_i} = 0.1^{\circ}$.
 
 The DWBA simulation is shown for a standard sample model:
 

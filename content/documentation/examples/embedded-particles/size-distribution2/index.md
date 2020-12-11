@@ -13,7 +13,7 @@ Scattering of a polydisperse distribution of two types of cylinders.
 * The polydispersity affects the radii of the cylinders, following a normal distribution. For the small cylinders, their characteristic sizes vary around $R\_1 = 5$ nm with a standard deviation $\sigma\_1 = 0.2 R\_1$. For type 2, the average value $R\_2$ is $10$ nm and $\sigma\_2 = 0.02 R\_2$.
 * There is also no interference between the scattered beams.
 * The incident beam is characterized by a wavelength of $1$ $\unicode{x212B}$.
-* The incident angles $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="TwoTypesOfCylindersWithSizeDistribution_setup.jpg" width="350px" caption="Real-space model">}}

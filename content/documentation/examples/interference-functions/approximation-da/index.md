@@ -13,7 +13,7 @@ Scattering from a distribution of cylinders of two different sizes using the Dec
   * 20% of cylinders with radii and heights equal to $8$ nm.
 * The interference function is Radial Paracrystal with a peak distance of $18$ nm and a damping length of $1$ $\mu$m.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="/files/simulated/ApproximationDA.png" width="350px" caption="Intensity image">}}

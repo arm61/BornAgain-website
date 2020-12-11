@@ -52,7 +52,7 @@ detector = RectangularDetector(10, 200.0, 9, 180.0)
 
 {{< figscg src="xy_plane_with_labels.png" width="600" class="center">}}
 
-Here, the vertical and horizontal lines denote the bin boundaries while the blue markers show the bin centers. During a simulation, the bin intensity will be calculated for values of $\phi_f$ and $\alpha_f$ corresponding to the bin centers and then normalized to the bin area.
+Here, the vertical and horizontal lines denote the bin boundaries while the blue markers show the bin centers. During a simulation, the bin intensity will be calculated for values of $\varphi_f$ and $\alpha_f$ corresponding to the bin centers and then normalized to the bin area.
 
 {{< alert theme="info" >}}
 **Note**

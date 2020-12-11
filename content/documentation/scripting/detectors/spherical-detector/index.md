@@ -5,7 +5,7 @@ weight = 10
 
 ## Spherical detector
 
-This shape of detector represents a portion of a sphere, defined by the range of $\phi$ and $\alpha$ angles as shown in the plot below. The sphere has its center located at the origin of the sample coordinate system.
+This shape of detector represents a portion of a sphere, defined by the range of $\varphi$ and $\alpha$ angles as shown in the plot below. The sphere has its center located at the origin of the sample coordinate system.
 
 {{< figscg src="spherical_detector.png" width="500" class="center">}}
 
@@ -36,7 +36,7 @@ will create a detector plane with a total number of bins equal to 200 and with a
 
 {{< figscg src="phi_alpha_plane.png" width="600" class="center">}}
 
-Here, the vertical and horizontal lines denote bin boundaries while blue dots show the bin centers. During the simulation, the bin intensity will be calculated for values of $\phi_f$ and $\alpha_f$ corresponding to the bin centers and then normalized to the bin area.
+Here, the vertical and horizontal lines denote bin boundaries while blue dots show the bin centers. During the simulation, the bin intensity will be calculated for values of $\varphi_f$ and $\alpha_f$ corresponding to the bin centers and then normalized to the bin area.
 
 {{< alert theme="info" >}}
 **Note**

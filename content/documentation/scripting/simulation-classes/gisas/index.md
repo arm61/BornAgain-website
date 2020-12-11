@@ -145,7 +145,7 @@ The function `get_simulation` creates and returns a simulation object. The first
 
 {{< figscg src="beam-detector.png" width="400" class="center">}}
 
-The GISAS setup and the coordinate system used in `BornAgain`. The incoming beam propagates with the incidence angles $\alpha_i$ and $\phi_i$ with respect to the sample axes as shown. A scattered (outgoing) beam, characterized by $\alpha_f$ and $\phi_f$ propagates toward the area detector. The angles $\alpha_i$ and $\alpha_f$ are defined in such a way that those shown in the figure are positive.
+The GISAS setup and the coordinate system used in `BornAgain`. The incoming beam propagates with the incidence angles $\alpha_i$ and $\varphi_i$ with respect to the sample axes as shown. A scattered (outgoing) beam, characterized by $\alpha_f$ and $\varphi_f$ propagates toward the area detector. The angles $\alpha_i$ and $\alpha_f$ are defined in such a way that those shown in the figure are positive.
 
 The detector parameters are set using ranges of angles via the method:
 

@@ -12,7 +12,7 @@ The simulation generates four plots using different sizes of the particles, (rad
 * The sample is made of a monodisperse distribution of cylinders, deposited randomly on a substrate.
 * There is no interference between the scattered waves.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="LargeParticlesFormFactor_setup.jpg" width="350px" caption="Real-space model">}}

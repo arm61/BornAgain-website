@@ -11,7 +11,7 @@ Off-specular scattering from a monodisperse distribution of long boxes.
 * The particles are distributed along a one-dimensional lattice with a lattice spacing of $100$ nm in the $x$-direction.
 * The particles are rotated around the $z$-axis by $90^{\circ}$ so that their "infinite" dimension is parallel to the $y$-direction.
 * The incident wavelength is equal to $1$ $\unicode{x212B}$.
-* The output intensity is the result of an average over $\phi\_i$ comprised between $-1^{\circ}$ and $1^{\circ}$ and of a scan of $\alpha\_i$ and $\alpha\_f$ between $0^{\circ}$ and $10^{\circ}$.
+* The output intensity is the result of an average over $\varphi\_i$ comprised between $-1^{\circ}$ and $1^{\circ}$ and of a scan of $\alpha\_i$ and $\alpha\_f$ between $0^{\circ}$ and $10^{\circ}$.
 
 **Note:**
 

@@ -14,7 +14,7 @@ Scattering from a mixture of cylinders and prisms without interference.
 * Each prism is $5$ nm high with an equilateral triangular base, whose side length is equal to $10$ nm.
 * There is no interference between the waves scattered by these particles. The distribution is therefore diluted.
 * The incident neutron beam is characterized by a wavelength of $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 * The simulation is performed using the Distorted Wave Born Approximation (due to the presence of a substrate).
 
 {{< galleryscg >}}

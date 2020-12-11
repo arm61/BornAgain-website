@@ -12,7 +12,7 @@ Scattering from elongated particles distributed along a two-dimensional rectangu
 * This lattice is characterized by a lattice length of $200$ nm in the direction of the long axis of the particles and of $50$ nm in the perpendicular direction.
 * The lattice's base vectors coincide with the reference Cartesian frame.
 * The wavelength is equal to $1.6$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.3 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.3 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="CosineRipplesAtRectLattice_setup.jpg" width="350px" caption="Real-space model">}}

@@ -14,7 +14,7 @@ Scattering from cylinders of two different sizes using the Local Monodisperse Ap
 * Each type of cylinders is associated with a "particle layout".
 * The LMA is used since the sample is made of two domains containing particles of the same size and shape.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.
 
 {{< galleryscg >}}
 {{< figscg src="/files/simulated/ApproximationLMA.png" width="350px" caption="Intensity image">}}

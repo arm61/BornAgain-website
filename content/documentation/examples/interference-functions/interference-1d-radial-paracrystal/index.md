@@ -10,7 +10,7 @@ Scattering from a monodisperse distribution of cylinders positioned following a 
 * The sample is made of cylinders with radii and heights equal to $5$ nm, deposited on a substrate.
 * The distribution of particles follows a radial paracrystal, characterized by a peak distance of $20$ nm and a damping length of $1$ $\mu$m.
 * The wavelength is equal to $1$ $\unicode{x212B}$.
-* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\phi\_i = 0^{\circ}$.  
+* The incident angles are $\alpha\_i = 0.2 ^{\circ}$ and $\varphi\_i = 0^{\circ}$.  
 
 **Note:**
 
