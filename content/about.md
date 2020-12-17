@@ -14,7 +14,7 @@ breadcrumb = true
     <div class="col-lg-10 mx-auto mt-3 mb-2">
       <p class="lead">
         BornAgain is an open-source software project to simulate and fit grazing-incidence small-angle scattering (GISAS), using distorted-wave Born approximation (DWBA).</p>
-      <p class="lead"> Developed and suported by the <a href="http://www.fz-juelich.de/jcns/EN/Leistungen/ScientificComputing/_node.html">Scientific Computing Group</a> at <a href="http://www.mlz-garching.de/">MLZ, Garching</a>.</p>
+      <p class="lead"> Developed and suported by the <a href="http://www.fz-juelich.de/jcns/DE/Expertise/ScientificComputing/_node.html">Scientific Computing Group</a> at <a href="http://www.mlz-garching.de/">MLZ, Garching</a>.</p>
     </div>
   </div>
   <div class="row">
