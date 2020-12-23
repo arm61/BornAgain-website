@@ -5,7 +5,7 @@ weight = 21
 
 ## Installation on MacOS
 
-For Mac OS X, we provide a 64-bit binary .dmg installer for High Sierra (10.13) or above and also support build and installation from source. To build BornAgain from source by yourself follow the 
+For Mac OS X, we provide a 64-bit binary .dmg installer for High Sierra (10.13) or above and also support build and installation from source. To build BornAgain from source by yourself follow the
 [Installation on Linux]({{% relref "documentation/installation/linux-detailed" %}}) section.
 
 The rest of this section explains how to install BornAgain using the `.dmg` installer.
@@ -27,7 +27,7 @@ After downloading the installer, double click `.dmg` file to mount it, accept th
 
 {{< figscg src="installation_macdmg2.png" class="center">}}
 
-Depending on your system's security settings you might not be able to open BornAgain directly from the Launchpad. In this case you will have to proceed first with the instruction [Open an app from an unidentified developer](http://support.apple.com/kb/PH14369).
+Depending on your system's security settings you might not be able to open BornAgain directly from the Launchpad. In this case, search Apple help pages for something like "Open a Mac app from an unidentified developer".
 
 At this point you can can already start working with the BornAgain GUI. The rest of tutorial explains how to setup BornAgain for Python.
 
@@ -53,13 +53,13 @@ For MacPorts users (assuming Python version 3.6)
 ```
 $ sudo port install py36-matplotlib py36-numpy
 $ sudo port select --set python python36
-```  
+```
 {{% /collapse %}}
 
 ### Configure Python for BornAgain
 
-To make your Python installation aware of BornAgain, you have to install the BornAgain libraries into the `site-packages` of Python. 
-This can be done by running the `bornagain_install_python.py` script from the application bundle. Assuming that BornAgain is installed in the 
+To make your Python installation aware of BornAgain, you have to install the BornAgain libraries into the `site-packages` of Python.
+This can be done by running the `bornagain_install_python.py` script from the application bundle. Assuming that BornAgain is installed in the
 `/Applications/BornAgain.app` folder, launch the Terminal application and run the following command:
 
 ```
@@ -78,7 +78,7 @@ $ python -c "import bornagain"
 If no error is displayed, the installation was successful.
 
 {{% collapse title="More options" id="more-options-2"%}}
-If your prefer to install the BornAgain libraries not to the site-packages folder of your Python interpreter, but to a custom folder, check 
+If your prefer to install the BornAgain libraries not to the site-packages folder of your Python interpreter, but to a custom folder, check
 the [following instruction]({{% relref "advanced-tips.md" %}}).
 {{% /collapse %}}
 

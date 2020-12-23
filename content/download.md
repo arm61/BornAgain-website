@@ -127,7 +127,7 @@ breadcrumb = true
   <div class="row">
     <div class="col-lg-10 mx-auto mt-2">
       To use BornAgain from Python you have to have Python interpreter installed.
-      See {{< local-link "documentation/getting-started/installation">}} installation instructions {{< /local-link >}}for more details.
+      See {{< local-link "documentation/installation">}} installation instructions {{< /local-link >}}for more details.
     </div>
   </div>
 

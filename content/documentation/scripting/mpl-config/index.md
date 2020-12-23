@@ -8,18 +8,17 @@ weight = 12
 Images in BornAgain examples are generated using the Python library
 [Matplotlib](https://matplotlib.org/).
 
-Default settings can be overridden by command-line arguments,
-by function arguments, or through Matplotlib ressources.
+Default settings can be overridden by
+by function arguments, Matplotlib ressources, or environment variables.
 
 ### Plot invocation
 
 When running BornAgain through Python sripts, Matplotlib is invoked
-either directly, or indirectly through BornAgain functions like
-`plot_simulation_result`.
+either directly, or indirectly through BornAgain functions like `run_and_plot`.
 For direct invocation, see the [Matplotlib documentation](https://matplotlib.org/contents.html).
 Here we are concerned with indirect invocation through standard BornAgain plot functions.
 
-The function `plot_simulation_result`, and a number of lower-level functions,
+The functions `run_and_plot`, `plot_simulation_result`, and a number of lower-level functions,
 are all implemented in the Python module
 [`plot_utils`](https://github.com/scgmlz/BornAgain/blob/master/Wrap/python/plot_utils.py)
 that is part of the `bornagain` module.
@@ -34,17 +33,13 @@ These functions support the keyword arguments
 * `aspect`: [aspect ratio](https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_aspect.html), default is 'auto', other possible values are 'equal', or a number,
 * `noshow`: if `True`, run Matplotlib in batch mode, without displaying a plot.
 
-If a simulation script `sim.py` contains code like
+So if an example script contains the code line
 ```python
-import bornagain as ba
-...
-if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, *sys.argv[1:])
+    ba.run_and_plot()
 ```
-then keyword arguments can be passed from the command line:
-```bash
-$ python3 sim.py cmap=jet intensity_min=2e-8 intensity_max=2
+then the plot can be modified through keyword arguments like
+```python
+    ba.run_and_plot(cmap='jet', intensity_min=2e-8, intensity_max=2)
 ```
 
 ### Matplotlib ressources
@@ -55,7 +50,14 @@ See the
 for an introduction to ressources;
 see in particular the section on [`matplotlibrc` ressource files](https://matplotlib.org/tutorials/introductory/customizing.html#customizing-with-matplotlibrc-files).
 Note, however, that the color map (`cmap`) ressource setting is ignored
-when Matplotlib is used indirectly through BornAgain plot functions.
+when Matplotlib is used via BornAgain plot functions.
+
+### Environment variables
+
+BornAgain supports two specific environment variables:
+* `NOSHOW`, to prevent plot routines from opening a plot window;
+for use in tests and other batch processing;
+* `CMAP`, the default color map, see below.
 
 ### Color map
 
@@ -69,5 +71,5 @@ recommended in the
 ![Matplotlib perceptually uniform sequential color maps](/img/matplotlib_pus_colormaps.png "Perceptually uniform sequential color maps from Matplotlib.")
 
 Note that our choice of "inferno" is hard-coded,
-and overrides the `cmap` setting from Matplotlib ressources.
+and overrides the `CMAP` environment variable.
 It can however be overridden by a keyword argument, like `cmap='jet'`.
