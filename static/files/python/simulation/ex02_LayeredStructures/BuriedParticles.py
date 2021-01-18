@@ -2,7 +2,7 @@
 Spherical particles embedded in the middle of the layer on top of substrate.
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import deg, nm, kvector_t
 
 
 def get_sample():
@@ -10,53 +10,52 @@ def get_sample():
     Returns a sample with spherical particles in a layer
     between vacuum and substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_interm_layer = ba.HomogeneousMaterial("IntermLayer", 3.45e-6, 5.24e-9)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 7.43e-6, 1.72e-7)
-    m_particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
 
-    # collection of particles
+    # Define materials
+    material_IntermLayer = ba.HomogeneousMaterial("IntermLayer", 3.45e-06,
+                                                  5.24e-09)
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 7.43e-06, 1.72e-07)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
+
+    # Define form factors
     ff = ba.FormFactorFullSphere(10.2*nm)
-    sphere = ba.Particle(m_particle, ff)
-    sphere.setPosition(0.0, 0.0, -25.2)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(sphere, 1.0)
 
-    # assembling the sample
-    vacuum_layer = ba.Layer(m_vacuum)
-    intermediate_layer = ba.Layer(m_interm_layer, 30.*nm)
-    intermediate_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate, 0)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+    particle_position = kvector_t(0.0*nm, 0.0*nm, -25.2*nm)
+    particle.setPosition(particle_position)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(intermediate_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_2 = ba.Layer(material_IntermLayer, 30.0*nm)
+    layer_2.addLayout(layout)
+    layer_3 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+    sample.addLayer(layer_3)
+
+    return sample
 
 
-def get_simulation():
-    """
-    Returns a GISAXS simulation.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setSample(get_sample())
-    simulation.setDetectorParameters(200, -1*deg, +1*deg, 200, 0*deg, +2*deg)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 0.15*nm, ba.Direction(0.15*deg, 0*deg))
+    detector = ba.SphericalDetector(200, 2*deg, 0*deg, 1*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

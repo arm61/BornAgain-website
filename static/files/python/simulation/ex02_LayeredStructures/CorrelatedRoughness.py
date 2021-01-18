@@ -2,7 +2,7 @@
 MultiLayer with correlated roughness
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import deg, nm
 
 
 def get_sample():
@@ -39,33 +39,18 @@ def get_sample():
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
     my_sample.setCrossCorrLength(10*nm)
 
-    print(my_sample.treeToString())
-
     return my_sample
 
 
-def get_simulation():
-    """
-    Characterizing the input beam and output detector
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg,
-                                     1.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(5e11)
+def get_simulation(sample):
+    beam = ba.Beam(500000000000.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
+    detector = ba.SphericalDetector(200, 1*deg, 0*deg, 0.5*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

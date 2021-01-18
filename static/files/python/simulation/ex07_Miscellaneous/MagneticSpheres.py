@@ -2,70 +2,61 @@
 Simulation demo: magnetic spheres in substrate
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
-
-# Magnetization of the particle's material (A/m)
-magnetization_particle = ba.kvector_t(0.0, 0.0, 1e7)
+from bornagain import deg, nm, kvector_t
 
 
 def get_sample():
     """
     Returns a sample with magnetic spheres in the substrate.
     """
-    # defining materials
-    particle_material = ba.HomogeneousMaterial("Particle", 2e-5, 4e-7,
-                                               magnetization_particle)
-    vacuum_material = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    substrate_material = ba.HomogeneousMaterial("Substrate", 7e-6, 1.8e-7)
 
-    # spherical magnetic particle
-    sphere_ff = ba.FormFactorFullSphere(5*nm)
-    sphere = ba.Particle(particle_material, sphere_ff)
-    position = ba.kvector_t(0.0, 0.0, -10.0*nm)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(sphere, 1.0, position)
+    # Define materials
+    magnetic_field = kvector_t(0, 0, 10000000)
+    material_Particle = ba.HomogeneousMaterial("Particle", 2e-05, 4e-07,
+                                               magnetic_field)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 7e-06, 1.8e-07)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    # defining layers
-    vacuum_layer = ba.Layer(vacuum_material)
-    substrate_layer = ba.Layer(substrate_material)
-    substrate_layer.addLayout(particle_layout)
+    # Define form factors
+    ff = ba.FormFactorFullSphere(5.0*nm)
 
-    # defining the multilayer
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+    particle_position = kvector_t(0.0*nm, 0.0*nm, -10.0*nm)
+    particle.setPosition(particle_position)
 
-    return multi_layer
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_2 = ba.Layer(material_Substrate)
+    layer_2.addLayout(layout)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -3.0*deg, 3.0*deg, 200, 0.0*deg,
-                                     6.0*deg)
-    simulation.setBeamParameters(1.*angstrom, 0.5*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e12)
-
-    analyzer_dir = ba.kvector_t(0.0, 0.0, -1.0)
-    beampol = ba.kvector_t(0.0, 0.0, 1.0)
-    simulation.setBeamPolarization(beampol)
-    simulation.setAnalyzerProperties(analyzer_dir, 1.0, 0.5)
-
+def get_simulation(sample):
+    beam = ba.Beam(1e+12, 0.1*nm, ba.Direction(0.5*deg, 0*deg))
+    beam_polarization = kvector_t(0.0, 0.0, 1.0)
+    beam.setPolarization(beam_polarization)
+    detector = ba.SphericalDetector(200, 6*deg, 0*deg, 3*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
+    analyzer_direction = kvector_t(0.0, 0.0, -1.0)
+    simulation.setAnalyzerProperties(analyzer_direction, 1.0, 0.5)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

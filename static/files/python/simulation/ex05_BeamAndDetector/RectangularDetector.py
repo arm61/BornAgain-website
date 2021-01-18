@@ -4,7 +4,8 @@ Results will be compared against simulation with spherical detector.
 """
 import numpy
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 import matplotlib
 from matplotlib import pyplot as plt
 
@@ -17,26 +18,35 @@ def get_sample():
     """
     Returns a sample with cylindrical particles on a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    edge = 40*nm
-    ff = ba.FormFactorBox(edge, edge, edge)
-    cylinder = ba.Particle(m_particle, ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define form factors
+    ff = ba.FormFactorBox(40.0*nm, 40.0*nm, 40.0*nm)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_spherical_detector():
@@ -66,12 +76,13 @@ def get_rectangular_detector():
     return detector
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Return a GISAXS simulation with defined beam
     """
     simulation = ba.GISASSimulation()
     simulation.setBeamParameters(10*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -84,23 +95,19 @@ def plot(results):
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    ba.plot_colormap(results['spherical'],
+    ba_plot.plot_colormap(results['spherical'],
                      title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$',
                      ylabel=r'$\alpha_f ^{\circ}$',
-                     zlabel="",
-                     cmap='jet',
-                     aspect='auto')
+                     zlabel="")
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    ba.plot_colormap(results['rectangular'],
+    ba_plot.plot_colormap(results['rectangular'],
                      title="Rectangular detector",
                      xlabel='X, mm',
                      ylabel='Y, mm',
-                     zlabel="",
-                     cmap='jet',
-                     aspect='auto')
+                     zlabel="")
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
@@ -129,8 +136,7 @@ def run_simulation():
     results = {}
 
     sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
 
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())

@@ -3,29 +3,7 @@ Cylindrical particle made from two materials.
 Particle crosses air/substrate interface.
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
-
-
-def get_composition(top_material,
-                    bottom_material,
-                    top_height=4.0,
-                    bottom_height=10.0):
-    """
-    Returns cylindrical particle made of two different materials.
-    """
-
-    cylinder_radius = 10*nm
-
-    topPart = ba.Particle(top_material,
-                          ba.FormFactorCylinder(cylinder_radius, top_height))
-    bottomPart = ba.Particle(
-        bottom_material, ba.FormFactorCylinder(cylinder_radius, bottom_height))
-
-    result = ba.ParticleComposition()
-    result.addParticle(topPart, ba.kvector_t(0.0, 0.0, bottom_height))
-    result.addParticle(bottomPart)
-
-    return result
+from bornagain import deg, nm, kvector_t
 
 
 def get_sample():
@@ -35,54 +13,58 @@ def get_sample():
     Particle shifted down to cross interface.
     """
 
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8)
-    m_top_part = ba.HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
-    m_bottom_part = ba.HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9)
+    # Define materials
+    material_Ag = ba.HomogeneousMaterial("Ag", 1.245e-05, 5.419e-07)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 3.212e-06,
+                                                3.244e-08)
+    material_Teflon = ba.HomogeneousMaterial("Teflon", 2.9e-06, 6.019e-09)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    # collection of particles
-    composition = get_composition(m_top_part, m_bottom_part)
-    shift = 10.0*nm
-    composition.setPosition(0, 0, -shift)  # will be shifted below interface
+    # Define form factors
+    ff_1 = ba.FormFactorCylinder(10.0*nm, 4.0*nm)
+    ff_2 = ba.FormFactorCylinder(10.0*nm, 10.0*nm)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(composition)
-    particle_layout.setTotalParticleSurfaceDensity(1)
+    # Define particles
+    particle_1 = ba.Particle(material_Ag, ff_1)
+    particle_1_position = kvector_t(0.0*nm, 0.0*nm, 10.0*nm)
+    particle_1.setPosition(particle_1_position)
+    particle_2 = ba.Particle(material_Teflon, ff_2)
 
-    # vacuum layer with particles and substrate form multi layer
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    print(multi_layer.treeToString())
-    return multi_layer
+    # Define composition of particles at specific positions
+    particle_3 = ba.ParticleComposition()
+    particle_3.addParticle(particle_1)
+    particle_3.addParticle(particle_2)
+    particle_3_position = kvector_t(0.0*nm, 0.0*nm, -10.0*nm)
+    particle_3.setPosition(particle_3_position)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle_3, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(1)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1.0e+08)
+def get_simulation(sample):
+    beam = ba.Beam(100000000.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
+    detector = ba.SphericalDetector(100, 2*deg, 0*deg, 1*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns resulting intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

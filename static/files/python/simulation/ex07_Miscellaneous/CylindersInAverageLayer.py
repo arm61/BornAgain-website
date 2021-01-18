@@ -2,7 +2,7 @@
 Square lattice of cylinders inside finite layer with usage of average material
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import deg, nm, kvector_t
 
 
 def get_sample(cyl_height=5*nm):
@@ -41,28 +41,16 @@ def get_sample(cyl_height=5*nm):
     return multi_layer
 
 
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -2.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
+    detector = ba.SphericalDetector(100, -2*deg, 2*deg, 100, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     simulation.getOptions().setUseAvgMaterials(True)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)
