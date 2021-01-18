@@ -1,65 +1,62 @@
 """
 Cylinders on a 2D square lattice
 """
-import numpy
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import deg, nm, nm2
 
 
 def get_sample():
     """
     Returns a sample with cylinders on a substrate, forming a 2D square lattice.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    interference = ba.InterferenceFunctionFinite2DLattice(
-        ba.SquareLattice2D(25.0*nm, 0.0), 40, 40)
-    interference.setPositionVariance(1.0)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    cylinder_ff = ba.FormFactorCylinder(3.*nm, 3.*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder)
-    particle_layout.setInterferenceFunction(interference)
+    # Define form factors
+    ff = ba.FormFactorCylinder(3.0*nm, 3.0*nm)
 
-    # assembling the sample
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    print(multi_layer.parametersToString())
-    print(multi_layer.treeToString())
-    return multi_layer
+    # Define 2D lattices
+    lattice = ba.BasicLattice2D(25.0*nm, 25.0*nm, 90.0*deg, 0.0*deg)
+
+    # Define interference functions
+    iff = ba.InterferenceFunctionFinite2DLattice(lattice, 40, 40)
+    iff.setPositionVariance(1.0*nm2)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.0016)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
+    detector = ba.SphericalDetector(200, -2*deg, 2*deg, 200, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)
