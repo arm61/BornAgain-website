@@ -21,12 +21,12 @@ SLD/refractive index profile across sample layers, support for uncertainties in 
 
 **Example highlights**
 
-+ [Material SLD profile]({{< relref "documentation/examples/reflectometry/material-profile/" >}})
-+ [Material SLD profile with particles]({{< relref "documentation/examples/reflectometry/material-profile-with-particles/" >}})
-+ [Reflectometry fit with uncertanties]({{< relref "documentation/examples/fitting/extended/fit-with-uncertainties/" >}})
-+ [Beam divergence in reflectometry scan]({{< relref "documentation/examples/reflectometry/beam-full-divergence/" >}})
-+ [Resolution effects in TOF reflectometry]({{< relref "documentation/examples/reflectometry/tofr-with-resolution/" >}})
-+ [Angular divergence in reflectometry scan]({{< relref "documentation/examples/reflectometry/beam-angular-divergence/" >}})
++ [Material SLD profile]({{% relref "documentation/examples/reflectometry/material-profile" %}})
++ [Material SLD profile with particles]({{% relref "documentation/examples/reflectometry/material-profile-with-particles" %}})
++ [Reflectometry fit with uncertanties]({{% relref "documentation/examples/fitting/extended/fit-with-uncertainties" %}})
++ [Beam divergence in reflectometry scan]({{% relref "documentation/examples/reflectometry/beam-full-divergence" %}})
++ [Resolution effects in TOF reflectometry]({{% relref "documentation/examples/reflectometry/tofr-with-resolution" %}})
++ [Angular divergence in reflectometry scan]({{% relref "documentation/examples/reflectometry/beam-angular-divergence" %}})
 
 **API changes:**
 
