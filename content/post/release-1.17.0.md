@@ -30,7 +30,7 @@ article in the Journal of Applied Crystallography:
 This is intended to be the canonical reference for many years to come;
 please cite this article whenever refering to the BornAgain project.
 Additionally, please continue to document the use of a specific software
-version by an appropriate citation as suggested [here](https://www.bornagainproject.org/documentation/howto/cite).
+version by an appropriate citation as suggested [here](}}< relref "documentation/howto/cite" >}}).
 
 ## Change in development team ##
 
