@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>How to on BornAgain</title>
+    <link>https://www.bornagainproject.org/documentation/howto/</link>
+    <description>Recent content in How to on BornAgain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://www.bornagainproject.org/documentation/howto/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Get announcements</title>
+      <link>https://www.bornagainproject.org/documentation/howto/announcements/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/howto/announcements/</guid>
+      <description>How to get announcements Subscribe to the mailing list BornAgain announcements. It is moderated, and has very low traffic. It is used to announce new releases and workshops.</description>
+    </item>
+    
+    <item>
+      <title>Solve known problems</title>
+      <link>https://www.bornagainproject.org/documentation/howto/troubleshooting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/howto/troubleshooting/</guid>
+      <description>How to solve known problems  Windows specific  Missing api-ms-win-crt-runtime-l1-1-0.dll   MacOS specific  Incompatible library version of libgsl.0.dylib   Building from source on Linux  Configuration (cmake) fails Qt5 configuration problems Compilation (make) fails   Common  Functional test (ctest) fails Fatal Python error: PyThreadState_Get: no current thread     Windows specific Missing api-ms-win-crt-runtime-l1-1-0.dll On some Windows machines, you might get the message &amp;ldquo;The program can&amp;rsquo;t start because api-ms-win-crt-runtime-l1-1-0.</description>
+    </item>
+    
+    <item>
+      <title>Request help or report bugs</title>
+      <link>https://www.bornagainproject.org/documentation/howto/get-help/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/howto/get-help/</guid>
+      <description>Let us know if you encounter a problem during installation or while running BornAgain or if you have a question related to BornAgain models.
+Please use GitHub Issue System for all kind of problems/questions you might have. This will help us to track user requests and set our priorities.
+Let us know GitHub Issue System  report bug request help with problems in installing or running BornAgain request a new feature pose a question about BornAgain API or model implementations  Create issue    Especially for bug reports, supply all relevant information that may help us to analyse the issue.</description>
+    </item>
+    
+    <item>
+      <title>Contribute to this documentation</title>
+      <link>https://www.bornagainproject.org/documentation/howto/contribute-to-documentation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/howto/contribute-to-documentation/</guid>
+      <description>How to contribute to this documentation Here we explain how to edit this documentation locally and submit changes for online publication.
+General information Our web site repository contains two branches. Master branch contains markdown content of the site, gh-pages branch contains static html of the site. Hugo static site generator is used to produce html content from markdown pages.
+GitHub is configured to host content of gh-pages branch at this address.</description>
+    </item>
+    
+    <item>
+      <title>Cite BornAgain</title>
+      <link>https://www.bornagainproject.org/documentation/howto/cite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/howto/cite/</guid>
+      <description>How to cite BornAgain The canonical reference for BornAgain is the journal article:
+ Gennady Pospelov, Walter Van Herck, Jan Burle, Juan M. Carmona Loaiza, Céline Durniak, Jonathan M. Fisher, Marina Ganeva, Dmitry Yurov and Joachim Wuttke:
+BornAgain: software for simulating and fitting grazing-incidence small- angle scattering
+J. Appl. Cryst. 53, 262–276 (2020)
+ Use of the software should additionally be documented by citing a specific version thereof:
+ BornAgain — Software for simulating and fitting X-ray and neutron small-angle scattering at grazing incidence,</description>
+    </item>
+    
+  </channel>
+</rss>

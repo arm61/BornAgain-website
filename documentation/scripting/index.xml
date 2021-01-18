@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python scripting on BornAgain</title>
+    <link>https://www.bornagainproject.org/documentation/scripting/</link>
+    <description>Recent content in Python scripting on BornAgain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://www.bornagainproject.org/documentation/scripting/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python API</title>
+      <link>https://www.bornagainproject.org/documentation/scripting/python-api/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/scripting/python-api/</guid>
+      <description>Python API Simulation scripts interact with the BornAgain core library through an Application Programmer Interface (API). This API consists of numerous classes and their member functions. The primary API is written in the programming language C++. All important classes and their member functions are also available through a Python API.
+The BornAgain C++ User API Reference, and the Comprehensive BornAgain C++ API Reference are always up to date, since they are automatically extracted from the source code (which contains comment lines in the special Doxygen format in order to enable this self documentation).</description>
+    </item>
+    
+    <item>
+      <title>Accessing simulation results</title>
+      <link>https://www.bornagainproject.org/documentation/scripting/accessing-simulation-results/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/scripting/accessing-simulation-results/</guid>
+      <description>Accessing simulation results In this tutorial we explain how to access GISAS simulation results, how to plot the simulated detector 2D intensity map as a color map and how to export the result into various formats.
+SimulationResult object The detector intensity in BornAgain can be retrieved via special object of SimulationResult type.
+simulation = GISASSimulation() simulation.setDetectorParameters(20, -1.0*deg, 1.0*deg, 10, 0.0*deg, 1.0*deg) simulation.setSample(sample) simulation.runSimulation() result = simulation.result() SimulationResult object allows
+ Export of intensity data into numpy array.</description>
+    </item>
+    
+    <item>
+      <title>Matplotlib configuration</title>
+      <link>https://www.bornagainproject.org/documentation/scripting/mpl-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/scripting/mpl-config/</guid>
+      <description>Matplotlib configuration Images in BornAgain examples are generated using the Python library Matplotlib.
+Default settings can be overridden by by function arguments, Matplotlib ressources, or environment variables.
+Plot invocation When running BornAgain through Python sripts, Matplotlib is invoked either directly, or indirectly through BornAgain functions like run_and_plot. For direct invocation, see the Matplotlib documentation. Here we are concerned with indirect invocation through standard BornAgain plot functions.
+The functions run_and_plot, plot_simulation_result, and a number of lower-level functions, are all implemented in the Python module plot_utils that is part of the bornagain module.</description>
+    </item>
+    
+    <item>
+      <title>Materials</title>
+      <link>https://www.bornagainproject.org/documentation/scripting/materials/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/scripting/materials/</guid>
+      <description>Materials The refractive properties of a homogeneous Material can be specified through two different functions:
+ HomogeneousMaterial, based on the refractive index, MaterialBySLD, based on the scattering length density (SLD).  HomogeneousMaterial is equally suitable for X-rays or neutrons. However, it does not account for the wave-length dependence of the refractive index. This leads to incorrect results if there is too much spread in the incoming wavelength, as is regularly the case in neutron time-of-flight experiments.</description>
+    </item>
+    
+  </channel>
+</rss>

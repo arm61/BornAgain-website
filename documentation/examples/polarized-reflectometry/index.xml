@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Polarized reflectometry on BornAgain</title>
+    <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/</link>
+    <description>Recent content in Polarized reflectometry on BornAgain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Basic polarized reflectometry</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/basic-polarized-reflectometry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/basic-polarized-reflectometry/</guid>
+      <description>Specular reflectometry with polarized neutrons and a magnetic sample This example shows how to perform a specular reflectometry simulation with polarized neutrons. We show this for a sample that contains only a single magnetic layer on top of a substrate. The magnetization and polarization are chosen to be (anti-)parallel, and hence, no spin-flip is observed. By rotation of either the magnetization or the polarization vector, one can generalize this example to observe also the spin-flip channels.</description>
+    </item>
+    
+    <item>
+      <title>Spin-flip reflectivity</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spin-flip/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spin-flip/</guid>
+      <description>Spin-flip reflectivity In this section, we want to extend the basic polarized reflectometry tutorial to simulate spin-flip reflectivity. For this purpose, we want to parametrize the magnetization by the angle $\alpha$ between the magnetization and the spin of the incoming neutrons and its magnitude $\left| \mathbf{M} \right|$: $$\mathbf M = \left| \mathbf{M} \right| \left( \sin \alpha, \cos \alpha, 0\right)^\mathrm{T}$$ In practice, the construction of the magnetization vector in Python then proceeds as follows: magnetizationMagnitude = 1e8 angle = 30 * deg magnetizationVector = ba.</description>
+    </item>
+    
+    <item>
+      <title>Without analyzer</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/no-analyzer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/no-analyzer/</guid>
+      <description>Polarized reflectometry without analyzer Starting from the spin-flip tutorial, we want to remove the analyzer and perform a reflectivity simulation with incident polarized neutrons and no polarization analysis of the reflected beam. All other parameters of the simulation remain unchanged.
+Omitting the polarization analysis corresponds to summing up the spin-flip and non-spin-flip channels for both incident polarization states: $$I^+ = I^{++} + I^{+-} \hspace{2em} I^- = I^{- -} + I^{-+}$$</description>
+    </item>
+    
+    <item>
+      <title>Non-perfect polarizer &#43; analyzer</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-non-perfect-ap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-non-perfect-ap/</guid>
+      <description>Polarized specular reflectometry with non-perfect polarizer and analyzer In this example, we show how to perform a specular reflectometry simulation with polarized neutrons and both a non-perfect polarizer as well as analyzer. The example is inspired by and performed with parameters close to the ones in the paper by Devishvili et al.. This example is a saturated iron film on top of a MgO substrate. On top of the iron layer is a thin Pd cap layer.</description>
+    </item>
+    
+    <item>
+      <title>Spin asymmetry example</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry/</guid>
+      <description>Spin-asymmetry example from NIST This example shows how to simulate the magnetic layer described on the NIST homepage in the Magnetically Dead Layers in Spinel Films example. In particular, we want to show how to use BornAgain in order to simulate the spin asymmetry. The sample simulated in this example is very similar to the previous examples introduced in this section. It just consists of a magnetic layer on top of a substrate.</description>
+    </item>
+    
+    <item>
+      <title>Spin asymmetry fit example</title>
+      <link>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry-fit/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry-fit/</guid>
+      <description>Fitting the spin-asymmetry example from NIST This example shows how to fit the parameters in the spin-asymmetry example.
+For this demonstration, we choose initial parameters that are not too far from the fitting results. In particular, the magnetization is initially set to zero, such that the spin asymmetry identically vanishes.
+With the initial parameters, we obtain the following reflectivity and spin-asymmetry curves:
+  Reflectivity
+    Spin Asymmetry</description>
+    </item>
+    
+  </channel>
+</rss>

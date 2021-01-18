@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Examples on BornAgain</title>
+    <link>https://www.bornagainproject.org/documentation/examples/</link>
+    <description>Recent content in Examples on BornAgain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://www.bornagainproject.org/documentation/examples/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

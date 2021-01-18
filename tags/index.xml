@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on BornAgain</title>
+    <link>https://www.bornagainproject.org/tags/</link>
+    <description>Recent content in Tags on BornAgain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.bornagainproject.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Recruitment</title>
+      <link>https://www.bornagainproject.org/tags/recruitment/</link>
+      <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/tags/recruitment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Release</title>
+      <link>https://www.bornagainproject.org/tags/release/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bornagainproject.org/tags/release/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Documentation</title>
+      <link>https://www.bornagainproject.org/tags/documentation/</link>
+      <pubDate>Sat, 01 Feb 2020 08:30:10 +0200</pubDate>
+      
+      <guid>https://www.bornagainproject.org/tags/documentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Workshop</title>
+      <link>https://www.bornagainproject.org/tags/workshop/</link>
+      <pubDate>Thu, 27 Sep 2018 08:30:10 +0200</pubDate>
+      
+      <guid>https://www.bornagainproject.org/tags/workshop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Website</title>
+      <link>https://www.bornagainproject.org/tags/website/</link>
+      <pubDate>Wed, 30 May 2018 08:30:10 +0200</pubDate>
+      
+      <guid>https://www.bornagainproject.org/tags/website/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

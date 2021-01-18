@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>New release of BornAgain: version 1.17 -- BornAgain</title>
+<link rel="icon" href="https://www.bornagainproject.org/bornagain-logo.png">
+
+
+<link href="https://www.bornagainproject.org/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/theme.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/mathjax-style.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/vs.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/baguetteBox.min.css" rel="stylesheet">
+<link href="https://www.bornagainproject.org/css/gallery-grid.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/assets/css/bornagain.css" rel="stylesheet">
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel='stylesheet'  type='text/css'>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+   MathJax.Hub.Config({
+     showProcessingMessages: false,
+     messageStyle: "none",
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       processEscapes: true
+     },
+     TeX: {
+       MultLineWidth: "100%",
+       equationNumbers: { autoNumber: "AMS" }
+     },
+     "HTML-CSS": { fonts: ["Latin-Modern"] }
+   });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math,displaymode,script) {
+        if (!displaymode) {math = "\\small{"+math+"}"}
+        return PREFILTER.call(TEX,math,displaymode,script);
+      }
+    });
+  });
+  </script>
+
+</head>
+
+
+  <body>
+    <header class="hero overlay"><div class="container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-primary">
+    <a class="navbar-brand" href="https://www.bornagainproject.org">
+        <img src="https://www.bornagainproject.org/assets/img/bornagain-logo.png" class="d-inline-block align-top" alt="">
+        BornAgain
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/">Home</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/gallery/">Gallery</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/download/">Download</a></li>
+        
+          <li class="nav-item active"> <a class="nav-link" href="https://www.bornagainproject.org/post/">News</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/documentation/">Documentation</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/contact/">Contact</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/about/">About</a></li>
+          
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/scgmlz/BornAgain" target="_blank" rel="noopener" aria-label="GitHub">
+              <span class="fa fa-github fa-2x"></span>
+            </a>
+          </li>        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+  
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12"> <br></div>
+        </div>
+      </div>
+    </header>
+
+    
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+
+
+
+
+
+ <a href='https://www.bornagainproject.org/'>Home</a> > <a href='https://www.bornagainproject.org/post/'>News</a> > New release of BornAgain: version 1.17
+
+ 
+
+ 
+
+   
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+    
+
+
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            
+            
+  
+  <div class="row">
+      <div class="col-md-12 text-right">
+            <p style="font-size: 0.85em;" > posted on June 17, 2020   </p>
+      </div>
+  </div>
+  <div class="alert 
+alert-success"
+ 
+role="alert"><h4 id="new-release-of-bornagain-version-117">New release of BornAgain: version 1.17</h4>
+</div>
+
+<p>This letter contains three announcements:</p>
+<ul>
+<li>Publication of the BornAgain reference paper in J. Appl. Cryst.</li>
+<li>Changes in development team</li>
+<li>Release 1.17</li>
+</ul>
+<h2 id="reference-paper-">Reference paper</h2>
+<p>A comprehensive description of BornAgain has been published as an open-access
+article in the Journal of Applied Crystallography:</p>
+<blockquote>
+<p>G. Pospelov, W. Van Herck, J. Burle, J. M. Carmona Loaiza, C. Durniak, J. M. Fisher, M. Ganeva, D. Yurov and J. Wuttke, BornAgain: software for simulating and fitting grazing-incidence small-angle scattering. J. Appl. Cryst. 53, 262-276 (2020)</p>
+</blockquote>
+<blockquote>
+<p><a href="http://scripts.iucr.org/cgi-bin/paper?S1600576719016789,">http://scripts.iucr.org/cgi-bin/paper?S1600576719016789,</a> <a href="https://doi.org/10.1107/S1600576719016789">https://doi.org/10.1107/S1600576719016789</a></p>
+</blockquote>
+<p>This is intended to be the canonical reference for many years to come;
+please cite this article whenever refering to the BornAgain project.
+Additionally, please continue to document the use of a specific software
+version by an appropriate citation as suggested [here](}}&lt; relref &ldquo;documentation/howto/cite&rdquo; &gt;}}).</p>
+<h2 id="change-in-development-team-">Change in development team</h2>
+<p>Walter Van Herck and Dmitry Yurov have left our group to reorient themselves
+geographically or/and career-wise. Walter has been one of the two lead
+developers since the start of the project in 2012. Dmitry joined in 2017
+with funding from the European Spallation Source. We are very grateful to
+Walter and Dmitry for their lasting contributions to BornAgain.</p>
+<p>In the meantime two new research software engineers have joined the team,
+Alexander Schober and Randolf Beerwerth. Alexander has been with the MLZ
+Scientific Computing Group since 2018, and has so far worked on two data
+reduction projects. He is now supporting Gennady in a deep overhaul of the
+GUI, in view of its generalization to reflectometry. Randolf has been with
+us since February 2020; he is currently working on the reflectometry core
+and on polarization support.</p>
+<h2 id="release-1170-">Release 1.17.0</h2>
+<p>Today, BornAgain 1.17.0 has been released.</p>
+<p>New Core functionality includes the Nevot-Croce roughness model, support
+for switching between roughness models and reflectometry engines, and a few
+new form factors (cantellated cubes, rectangular ripples). The API has changed
+for ripples, as described in a new section of the form factor catalog.</p>
+<p>Changes in the GUI mainly address visual issues on high-resolution displays.
+This may result in some compatibility issues with previous versions.</p>
+<p>Much of this release is devoted to internal consolidation and speedup.</p>
+<ul>
+<li>Standard reflectometry computations become ill conditioned at vanishing
+transmissions. Previously, we addressed this issue with a bifurcation.
+We have now implemented a new linear algorithm that is much faster for
+samples with many layers.</li>
+<li>The spheroid form factor is now computed without numeric integration.
+Thanks to Matt Thompson (Australian National University) for the suggestion.</li>
+<li>Continuous integration tests have been put under control of GitHub Actions,
+and tentatively been moved to GitHub&rsquo;s own cloud service. This will reduce
+waiting times, and thereby make development faster and smoother. Thanks to
+Andrew Nelson (ANSTO) for insights from the GitHub Actions script he wrote
+as part of his reflectometry software cross-validation efforts.</li>
+</ul>
+<p>We have stopped distributing BornAgain for Python 2.7. We recommend switching to
+the latest Python, 3.8. The CMake minimum required version has changed
+to 3.14. The minimum supported MacOS version is now 10.13. For building under
+Linux, we recommend Ubuntu 20.04 LTS Focal / Debian 11 bullseye.</p>
+<p>There are three new examples:</p>
+<ul>
+<li><a href="https://www.bornagainproject.org/documentation/examples/reflectometry/roughness-model/">Specular simulation with different roughness models</a></li>
+<li><a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/basic-polarized-reflectometry/">Basic polarized reflectometry</a></li>
+<li><a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/real-life-reflectometry/">Reflectometry: Real life fitting</a></li>
+</ul>
+<p>More details are in the CHANGELOG, the <a href="http://apps.jcns.fz-juelich.de/redmine/versions/51">issue tracker</a>, and the git history.</p>
+<p>As always, we very much welcome your comments and feedback!</p>
+
+  <div class="container next-prev">
+<nav>
+  <ul class="pagination pagination-sm justify-content-end"><li class="page-item ">
+      <a href="https://www.bornagainproject.org/post/release-1.18.0/" class="page-link"><i class="fa fa-chevron-left fa-1g "></i>
+      </a>
+    </li>  
+
+    <li class="page-item ">
+      <a href="https://www.bornagainproject.org/post/paper1/" class="page-link"><i class="fa fa-chevron-right fa-1g "></i>
+      </a>
+    </li></ul>
+</nav>
+</div>
+
+  
+        </div>
+      </div>
+    </div>    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-inline text-center">
+                    
+                      <li class="list-inline-item social">
+                        <a href="mailto:contact@bornagainproject.org">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li class="list-inline-item social">
+                      <a href="https://github.com/scgmlz/BornAgain">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted"></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://www.bornagainproject.org/js/bootstrap.min.js"></script>
+    
+    <script src="https://www.bornagainproject.org/js/baguetteBox.min.js"></script>
+    <script>
+      baguetteBox.run('.galleryscg');
+    </script>    
+    
+    <script src="https://www.bornagainproject.org/js/theme.js"></script>
+    <script src="https://www.bornagainproject.org/assets/js/bornagain.js"></script>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-120020802-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+</body>
+</html>
+

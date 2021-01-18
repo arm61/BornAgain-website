@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Reflectometry: Fit honeycomb -- BornAgain</title>
+<link rel="icon" href="https://www.bornagainproject.org/bornagain-logo.png">
+
+
+<link href="https://www.bornagainproject.org/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/theme.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/mathjax-style.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/vs.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/css/baguetteBox.min.css" rel="stylesheet">
+<link href="https://www.bornagainproject.org/css/gallery-grid.css" rel="stylesheet">
+
+<link href="https://www.bornagainproject.org/assets/css/bornagain.css" rel="stylesheet">
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel='stylesheet'  type='text/css'>
+<script type="text/javascript" id="MathJax-script" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+   MathJax.Hub.Config({
+     showProcessingMessages: false,
+     messageStyle: "none",
+     tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+       processEscapes: true
+     },
+     TeX: {
+       MultLineWidth: "100%",
+       equationNumbers: { autoNumber: "AMS" }
+     },
+     "HTML-CSS": { fonts: ["Latin-Modern"] }
+   });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math,displaymode,script) {
+        if (!displaymode) {math = "\\small{"+math+"}"}
+        return PREFILTER.call(TEX,math,displaymode,script);
+      }
+    });
+  });
+  </script>
+
+</head>
+
+
+  <body>
+    <header class="hero overlay"><div class="container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-primary">
+    <a class="navbar-brand" href="https://www.bornagainproject.org">
+        <img src="https://www.bornagainproject.org/assets/img/bornagain-logo.png" class="d-inline-block align-top" alt="">
+        BornAgain
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/">Home</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/gallery/">Gallery</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/download/">Download</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/post/">News</a></li>
+        
+          <li class="nav-item active"> <a class="nav-link" href="https://www.bornagainproject.org/documentation/">Documentation</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/contact/">Contact</a></li>
+        
+          <li class="nav-item "> <a class="nav-link" href="https://www.bornagainproject.org/about/">About</a></li>
+          
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/scgmlz/BornAgain" target="_blank" rel="noopener" aria-label="GitHub">
+              <span class="fa fa-github fa-2x"></span>
+            </a>
+          </li>        
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+  
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12"> <br></div>
+        </div>
+      </div>
+    </header>
+
+    
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+
+
+
+
+
+
+
+
+
+
+
+ <a href='https://www.bornagainproject.org/'>Home</a> > <a href='https://www.bornagainproject.org/documentation/'>Documentation</a> > <a href='https://www.bornagainproject.org/documentation/examples/'>Examples</a> > <a href='https://www.bornagainproject.org/documentation/examples/fitting/'>Fitting</a> > <a href='https://www.bornagainproject.org/documentation/examples/fitting/extended/'>Extended examples</a> > Reflectometry: Fit honeycomb
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+   
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+    
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      
+      
+  
+  <h3 id="reflectometry-fit-honeycomb-lattice">Reflectometry: Fit honeycomb lattice</h3>
+<p>In this example, we want to demonstrate how to fit a more complex sample.
+For this purpose, we utilize the reflectometry data of an
+artificial magnetic honeycomb lattice published by A. Glavic et al., in
+<a href="https://doi.org/10.1002/advs.201700856">this paper</a></p>
+<p>The experiment was performed with polarized neutrons, but without polarization analysis.
+Since the magnetization of the sample was parallel to the neutron spin, there is no spin flip
+and we apply the scalar theory to this problem.
+This is primarily done to speed up computations: when the polarized computational engine is utilized
+the fitting procedure takes roughly three times as long.</p>
+<h4 id="experimental-data">Experimental data</h4>
+<p>The experimental data consists of four datasets that should be fitted simultaneously.
+These datasets arise from the two polarization channels for up and down polarization of the incoming beam
+and both of these channels are measured at two temperatures (300K and 150K).</p>
+<p>All of this is measured on the same sample, so all parameters are assumed to be the same,
+except the magnetization being temperature dependent.
+Therefore, we introduce a scaling parameter for the magnetization as the ratio of the
+magnetizations at 150K and 300K: $M_{s150} = M_{150K} / M_{300K}$.</p>
+<h4 id="magnetization-model">Magnetization model</h4>
+<p>To model a magnetic material, one can assign a magnetization vector to any material, as is demonstrated
+in the <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/basic-polarized-reflectometry/">basic polarized reflectometry tutorial</a>.
+When a non-vanishing magnetization vector is specified for at least one layer in a sample,
+BornAgain will automatically utilize the polarized computational engine.
+This leads to lower performance as the computations are more invovled.</p>
+<p>In this example, the magnetization is (anti)parallel to the neutron spin and hence we instead parametrize
+the magnetic layers with an effective SLD that is the sum/difference of the nuclear and their magnetic SLD:</p>
+<p>$$\rho_\pm = \rho_{\text{N}} \pm \rho_{\text{M}}$$</p>
+<p>Here the $+$ is chosen for incoming neutrons with spin up and $-$ is chosen for spin down neutrons.</p>
+<h4 id="computational-model">Computational model</h4>
+<p>We simulate this experiment by bulding a 6 layer model:
+As usual the top layer is the vacuum and the bottom layer is a silicon substrate.
+On top of the silicon substrate, we simulate a thin oxide layer, where we fit its roughness and thickness
+The SLDs of these three layers are taken from the literature and kept constant.</p>
+<p>Then we model the lattice structure with a three-layer model: two layers to account for density fluctuations
+in $z$-direction and another oxide layer on top.
+This lattice structure is assumed to be magnetic and we fit all of their SLDs, magnetic SLDs,
+thicknesses and roughnesses.
+The magnetic SLD depends on the temperature of the dataset, according to the scaling described above, where
+the $M_{s150}$ parameter is fitted.</p>
+<p>All layers are modeled without absorption, i.e. no imaginary part of the SLD.
+Ferthermore, we apply a resolution correction as described in <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/tofr-with-resolution/">this tutorial</a>
+with a fixed value for $\Delta Q / Q = 0.018$.
+The experimental data is normalized to unity, but we still fit the intensity, as is necessary due to the resolution correction.</p>
+<h4 id="running-a-computation">Running a computation</h4>
+<p>In order to run a computation, we define some functions to utilize a common simulation function
+for the two spin channels and both temperatures:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">run_Simulation_300_p</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">params</span> <span class="p">):</span>
+    <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">run_Simulation_300_m</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">params</span> <span class="p">):</span>
+    <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">run_Simulation_150_p</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">params</span> <span class="p">):</span>
+    <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">run_Simulation_150_m</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">params</span> <span class="p">):</span>
+    <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></div>
+<p>Here, the given arguments specify whether we want to simulate a spin-up beam (<code>sign = 1</code>)
+and whether the scaling of the magnetization should be applied (<code>ms150=True</code>).
+For the latter, <code>true</code> means that a dataset at 150K is simulated while <code>false</code>
+corresponds to 300K and the scaling parameter is set to unity.</p>
+<p>All four reflectivity curves are then computed using:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">q_300_p</span><span class="p">,</span> <span class="n">r_300_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span> <span class="n">run_Simulation_300_p</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">q_300_m</span><span class="p">,</span> <span class="n">r_300_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span> <span class="n">run_Simulation_300_m</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span> <span class="p">)</span> <span class="p">)</span>
+
+<span class="n">q_150_p</span><span class="p">,</span> <span class="n">r_150_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span> <span class="n">run_Simulation_150_p</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">q_150_m</span><span class="p">,</span> <span class="n">r_150_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span> <span class="n">run_Simulation_150_m</span><span class="p">(</span> <span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span> <span class="p">)</span> <span class="p">)</span></code></pre></div>
+<p>We choose some sensible initial parameters and these yield the following
+simulation result</p>
+
+
+<div class="galleryscg ">
+    <div class="row justify-content-center align-items-center">
+      
+<figure >
+ 	  <a href="Honeycomb_reflectivity_initial.png">
+ 	  	<img src="Honeycomb_reflectivity_initial.png" width="350px">
+ 	  </a>
+      <figcaption>
+      	<p>Reflectivity with the initial parameters</p>
+      </figcaption>
+	</figure>
+
+<figure >
+ 	  <a href="Honeycomb_sld_initial.png">
+ 	  	<img src="Honeycomb_sld_initial.png" width="350px">
+ 	  </a>
+      <figcaption>
+      	<p>SLD profile with the initial parameters</p>
+      </figcaption>
+	</figure>
+
+
+  </div>
+</div>
+
+
+
+<p>We have chosen the initial magnetization to be zero, hence there is only a single SLD curve for both spin directions.</p>
+<h4 id="fitting">Fitting</h4>
+<p>We fit this example by utilizing the differential evolution algorithm from <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html">Scipy</a>.
+As a measure for the goodness of the fit, we use the relative difference:</p>
+<p>$$\Delta = \sum_{j = 1}^4 \frac{1}{N_j} \sum_{i = 1}^N \left( \frac{d_{ji} - s_{ji}}{d_{ji} + s_{ji}} \right)^2$$</p>
+<p>Here the sum over $i$ sums up the fitting error at every data point as usual and
+the sum over $j$ adds the contributions from all four datasets.
+This is implemented in the <code>FitObjective::__call__</code> function and
+the <code>FitObjective</code> object holds all four datasets, and also performs the corresponding simulations.
+In the function <code>run_fit_differential_evolution</code> this is dispatched to the differential evolution algorithm.</p>
+<p>The given uncercainty of the experimental data is not taken into account.</p>
+<h4 id="fit-result">Fit Result</h4>
+<p>As usual, the fit can be run with the following command:
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">python3</span> <span class="n">Honeycomb_fit</span><span class="o">.</span><span class="n">py</span> <span class="n">fit</span></code></pre></div>
+On a four-core workstation, the fitting procedure takes roughly 45 minutes to complete and we obtain the following result:</p>
+
+
+<div class="galleryscg ">
+    <div class="row justify-content-center align-items-center">
+      
+<figure >
+ 	  <a href="Honeycomb_reflectivity_fit.png">
+ 	  	<img src="Honeycomb_reflectivity_fit.png" width="350px">
+ 	  </a>
+      <figcaption>
+      	<p>Reflectivity with the fit result</p>
+      </figcaption>
+	</figure>
+
+<figure >
+ 	  <a href="Honeycomb_sld_fit.png">
+ 	  	<img src="Honeycomb_sld_fit.png" width="350px">
+ 	  </a>
+      <figcaption>
+      	<p>SLD profile with the fit result</p>
+      </figcaption>
+	</figure>
+
+
+  </div>
+</div>
+
+
+
+<p>As can be seen from the plot of the SLDs, the magnetization is indeed larger for the measurement at lower temperature, exactly as expected.</p>
+
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span><span class="lnt">319
+</span><span class="lnt">320
+</span><span class="lnt">321
+</span><span class="lnt">322
+</span><span class="lnt">323
+</span><span class="lnt">324
+</span><span class="lnt">325
+</span><span class="lnt">326
+</span><span class="lnt">327
+</span><span class="lnt">328
+</span><span class="lnt">329
+</span><span class="lnt">330
+</span><span class="lnt">331
+</span><span class="lnt">332
+</span><span class="lnt">333
+</span><span class="lnt">334
+</span><span class="lnt">335
+</span><span class="lnt">336
+</span><span class="lnt">337
+</span><span class="lnt">338
+</span><span class="lnt">339
+</span><span class="lnt">340
+</span><span class="lnt">341
+</span><span class="lnt">342
+</span><span class="lnt">343
+</span><span class="lnt">344
+</span><span class="lnt">345
+</span><span class="lnt">346
+</span><span class="lnt">347
+</span><span class="lnt">348
+</span><span class="lnt">349
+</span><span class="lnt">350
+</span><span class="lnt">351
+</span><span class="lnt">352
+</span><span class="lnt">353
+</span><span class="lnt">354
+</span><span class="lnt">355
+</span><span class="lnt">356
+</span><span class="lnt">357
+</span><span class="lnt">358
+</span><span class="lnt">359
+</span><span class="lnt">360
+</span><span class="lnt">361
+</span><span class="lnt">362
+</span><span class="lnt">363
+</span><span class="lnt">364
+</span><span class="lnt">365
+</span><span class="lnt">366
+</span><span class="lnt">367
+</span><span class="lnt">368
+</span><span class="lnt">369
+</span><span class="lnt">370
+</span><span class="lnt">371
+</span><span class="lnt">372
+</span><span class="lnt">373
+</span><span class="lnt">374
+</span><span class="lnt">375
+</span><span class="lnt">376
+</span><span class="lnt">377
+</span><span class="lnt">378
+</span><span class="lnt">379
+</span><span class="lnt">380
+</span><span class="lnt">381
+</span><span class="lnt">382
+</span><span class="lnt">383
+</span><span class="lnt">384
+</span><span class="lnt">385
+</span><span class="lnt">386
+</span><span class="lnt">387
+</span><span class="lnt">388
+</span><span class="lnt">389
+</span><span class="lnt">390
+</span><span class="lnt">391
+</span><span class="lnt">392
+</span><span class="lnt">393
+</span><span class="lnt">394
+</span><span class="lnt">395
+</span><span class="lnt">396
+</span><span class="lnt">397
+</span><span class="lnt">398
+</span><span class="lnt">399
+</span><span class="lnt">400
+</span><span class="lnt">401
+</span><span class="lnt">402
+</span><span class="lnt">403
+</span><span class="lnt">404
+</span><span class="lnt">405
+</span><span class="lnt">406
+</span><span class="lnt">407
+</span><span class="lnt">408
+</span><span class="lnt">409
+</span><span class="lnt">410
+</span><span class="lnt">411
+</span><span class="lnt">412
+</span><span class="lnt">413
+</span><span class="lnt">414
+</span><span class="lnt">415
+</span><span class="lnt">416
+</span><span class="lnt">417
+</span><span class="lnt">418
+</span><span class="lnt">419
+</span><span class="lnt">420
+</span><span class="lnt">421
+</span><span class="lnt">422
+</span><span class="lnt">423
+</span><span class="lnt">424
+</span><span class="lnt">425
+</span><span class="lnt">426
+</span><span class="lnt">427
+</span><span class="lnt">428
+</span><span class="lnt">429
+</span><span class="lnt">430
+</span><span class="lnt">431
+</span><span class="lnt">432
+</span><span class="lnt">433
+</span><span class="lnt">434
+</span><span class="lnt">435
+</span><span class="lnt">436
+</span><span class="lnt">437
+</span><span class="lnt">438
+</span><span class="lnt">439
+</span><span class="lnt">440
+</span><span class="lnt">441
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">This example demonstrates how to fit a complex experimental setup using BornAgain.
+</span><span class="s2">It is based on real data published in  https://doi.org/10.1002/advs.201700856
+</span><span class="s2">by A. Glavic et al.
+</span><span class="s2">In this example we utilize the scalar reflectometry  engine to fit polarized 
+</span><span class="s2">data without spin-flip for performance reasons.
+</span><span class="s2">&#34;&#34;&#34;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">differential_evolution</span>
+
+<span class="kn">import</span> <span class="nn">bornagain</span> <span class="kn">as</span> <span class="nn">ba</span>
+<span class="kn">from</span> <span class="nn">bornagain</span> <span class="kn">import</span> <span class="n">angstrom</span>
+
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+
+<span class="c1"># number of points on which the computed result is plotted</span>
+<span class="n">scan_size</span> <span class="o">=</span> <span class="mi">1500</span>
+
+<span class="c1"># restrict the Q-range of the data used for fitting</span>
+<span class="n">qmin</span> <span class="o">=</span> <span class="mf">0.08</span>
+<span class="n">qmax</span> <span class="o">=</span> <span class="mf">1.4</span>
+
+<span class="c1">####################################################################</span>
+<span class="c1">#                  Create Sample and Simulation                    #</span>
+<span class="c1">####################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">m_Air</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;Air&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">m_PyOx</span>  <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;PyOx&#34;</span><span class="p">,</span>
+                               <span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_PyOx_real&#34;</span><span class="p">]</span> <span class="o">+</span> \
+                                 <span class="n">sign</span> <span class="o">*</span> <span class="n">ms150</span> <span class="o">*</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;msld_PyOx&#34;</span><span class="p">]</span> <span class="p">)</span><span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
+                               <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_PyOx_imag&#34;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">m_Py2</span>   <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;Py2&#34;</span><span class="p">,</span>
+                               <span class="p">(</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Py2_real&#34;</span><span class="p">]</span> <span class="o">+</span> \
+                                 <span class="n">sign</span> <span class="o">*</span> <span class="n">ms150</span> <span class="o">*</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;msld_Py2&#34;</span><span class="p">]</span> <span class="p">)</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
+                               <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Py2_imag&#34;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">m_Py1</span>   <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;Py1&#34;</span><span class="p">,</span>
+                               <span class="p">(</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Py1_real&#34;</span><span class="p">]</span> <span class="o">+</span> \
+                                 <span class="n">sign</span> <span class="o">*</span> <span class="n">ms150</span> <span class="o">*</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;msld_Py1&#34;</span><span class="p">]</span> <span class="p">)</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
+                               <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Py1_imag&#34;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">m_SiO2</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;SiO2&#34;</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_SiO2_real&#34;</span><span class="p">]</span><span class="o">*</span><span class="mf">1e-6</span><span class="p">,</span>
+                              <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_SiO2_imag&#34;</span><span class="p">]</span><span class="o">*</span><span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">m_Si</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialBySLD</span><span class="p">(</span><span class="s2">&#34;Substrate&#34;</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Si_real&#34;</span><span class="p">]</span><span class="o">*</span><span class="mf">1e-6</span><span class="p">,</span>
+                            <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;sld_Si_imag&#34;</span><span class="p">]</span><span class="o">*</span><span class="mf">1e-6</span><span class="p">)</span>
+
+    <span class="n">l_Air</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_Air</span><span class="p">)</span>
+    <span class="n">l_PyOx</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_PyOx</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;t_PyOx&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">l_Py2</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_Py2</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;t_Py2&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">l_Py1</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_Py1</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;t_Py1&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">l_SiO2</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_SiO2</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;t_SiO2&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">l_Si</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">m_Si</span><span class="p">)</span>
+
+    <span class="n">r_PyOx</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">LayerRoughness</span><span class="p">()</span>
+    <span class="n">r_Py2</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">LayerRoughness</span><span class="p">()</span>
+    <span class="n">r_Py1</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">LayerRoughness</span><span class="p">()</span>
+    <span class="n">r_SiO2</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">LayerRoughness</span><span class="p">()</span>
+    <span class="n">r_Si</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">LayerRoughness</span><span class="p">()</span>
+
+    <span class="n">r_PyOx</span><span class="o">.</span><span class="n">setSigma</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;r_PyOx&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">r_Py2</span><span class="o">.</span><span class="n">setSigma</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;r_Py2&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">r_Py1</span><span class="o">.</span><span class="n">setSigma</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;r_Py1&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">r_SiO2</span><span class="o">.</span><span class="n">setSigma</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;r_SiO2&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+    <span class="n">r_Si</span><span class="o">.</span><span class="n">setSigma</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;r_Si&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">angstrom</span><span class="p">)</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MultiLayer</span><span class="p">()</span>
+
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">l_Air</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayerWithTopRoughness</span><span class="p">(</span><span class="n">l_PyOx</span><span class="p">,</span> <span class="n">r_PyOx</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayerWithTopRoughness</span><span class="p">(</span><span class="n">l_Py2</span><span class="p">,</span> <span class="n">r_Py2</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayerWithTopRoughness</span><span class="p">(</span><span class="n">l_Py1</span><span class="p">,</span> <span class="n">r_Py1</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayerWithTopRoughness</span><span class="p">(</span><span class="n">l_SiO2</span><span class="p">,</span> <span class="n">r_SiO2</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">addLayerWithTopRoughness</span><span class="p">(</span><span class="n">l_Si</span><span class="p">,</span> <span class="n">r_Si</span><span class="p">)</span>
+
+    <span class="n">sample</span><span class="o">.</span><span class="n">setRoughnessModel</span><span class="p">(</span><span class="n">ba</span><span class="o">.</span><span class="n">RoughnessModel</span><span class="o">.</span><span class="n">NEVOT_CROCE</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sample</span>
+
+
+<span class="k">def</span> <span class="nf">get_simulation</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="n">fitParams</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="n">n_points</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="n">n_sig</span> <span class="o">=</span> <span class="mf">3.0</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fitParams</span><span class="p">,</span> <span class="o">**</span><span class="n">fixedParams</span><span class="p">)</span>
+
+    <span class="n">q_distr</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">RangedDistributionGaussian</span><span class="p">(</span><span class="n">n_points</span><span class="p">,</span> <span class="n">n_sig</span><span class="p">)</span>
+
+    <span class="n">dq</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;dq&#34;</span><span class="p">]</span><span class="o">*</span><span class="n">q_axis</span>
+    <span class="n">scan</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">QSpecScan</span><span class="p">(</span><span class="n">q_axis</span><span class="p">)</span>
+    <span class="n">scan</span><span class="o">.</span><span class="n">setAbsoluteQResolution</span><span class="p">(</span><span class="n">q_distr</span><span class="p">,</span> <span class="n">dq</span><span class="p">)</span>
+
+    <span class="n">simulation</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">SpecularSimulation</span><span class="p">()</span>
+    <span class="n">simulation</span><span class="o">.</span><span class="n">setScan</span><span class="p">(</span><span class="n">scan</span><span class="p">)</span>
+    <span class="n">simulation</span><span class="o">.</span><span class="n">beam</span><span class="p">()</span><span class="o">.</span><span class="n">setIntensity</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;intensity&#34;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">ms150</span><span class="p">:</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                            <span class="n">sign</span><span class="o">=</span><span class="n">sign</span><span class="p">,</span>
+                            <span class="n">ms150</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;ms150&#34;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="n">sign</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">simulation</span><span class="o">.</span><span class="n">setSample</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">simulation</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">ba</span><span class="o">.</span><span class="n">ConstantBackground</span><span class="p">(</span><span class="mf">5e-7</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">simulation</span>
+
+
+<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="n">fitParams</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">simulation</span> <span class="o">=</span> <span class="n">get_simulation</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="n">fitParams</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">ms150</span><span class="p">)</span>
+    <span class="n">simulation</span><span class="o">.</span><span class="n">runSimulation</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">simulation</span>
+
+
+<span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    Returns two arrays that hold the q-values as well as the
+</span><span class="s2">    reflectivity from a given simulation result
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">ba</span><span class="o">.</span><span class="n">Axes</span><span class="o">.</span><span class="n">QSPACE</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ba</span><span class="o">.</span><span class="n">Axes</span><span class="o">.</span><span class="n">QSPACE</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span>
+
+
+<span class="c1">####################################################################</span>
+<span class="c1">#                         Plot Handling                            #</span>
+<span class="c1">####################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">exps</span><span class="p">,</span> <span class="n">shifts</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    Plot the simulated result together with the experimental data
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">shift</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">exps</span><span class="p">,</span> <span class="n">shifts</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">exp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">exp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">shift</span><span class="p">,</span>
+                    <span class="n">yerr</span><span class="o">=</span><span class="n">exp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">shift</span><span class="p">,</span>
+                    <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
+                    <span class="n">markersize</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+                    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="o">/</span><span class="n">shift</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;Q [nm${}^{-1}$]&#34;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;R&#34;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_sld_profile</span><span class="p">(</span><span class="n">fitParams</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fitParams</span><span class="p">,</span> <span class="o">**</span><span class="n">fixedParams</span><span class="p">)</span>
+
+    <span class="n">z_300_p</span><span class="p">,</span> <span class="n">sld_300_p</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialProfile</span><span class="p">(</span><span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">z_300_m</span><span class="p">,</span> <span class="n">sld_300_m</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialProfile</span><span class="p">(</span><span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">z_150_p</span><span class="p">,</span> <span class="n">sld_150_p</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialProfile</span><span class="p">(</span>
+        <span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;ms150&#34;</span><span class="p">]))</span>
+    <span class="n">z_150_m</span><span class="p">,</span> <span class="n">sld_150_m</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">MaterialProfile</span><span class="p">(</span>
+        <span class="n">get_sample</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&#34;ms150&#34;</span><span class="p">]))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">nsld</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_300_p</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sld_300_p</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&#34;300K $+$&#34;</span><span class="p">)</span>
+    <span class="n">nsld</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_300_m</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sld_300_m</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&#34;300K $-$&#34;</span><span class="p">)</span>
+
+    <span class="n">nsld</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_150_p</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sld_150_p</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&#34;150K $+$&#34;</span><span class="p">)</span>
+    <span class="n">nsld</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z_150_m</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sld_150_m</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&#34;150K $-$&#34;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;$z$ [A]&#34;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;$\delta(z) \cdot 10^6$&#34;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="c1">####################################################################</span>
+<span class="c1">#                          Data Handling                           #</span>
+<span class="c1">####################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">normalizeData</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    Removes duplicate q values from the input data,
+</span><span class="s2">    normalizes it such that the maximum of the reflectivity is
+</span><span class="s2">    unity and rescales the q-axis to inverse nm
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="c1"># delete repeated data</span>
+    <span class="n">r0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">angstrom</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span>
+    <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span>
+
+    <span class="c1"># sort by q axis</span>
+    <span class="n">so</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">so</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<span class="k">def</span> <span class="nf">get_Experimental_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">get_Experimental_data</span><span class="p">,</span> <span class="s2">&#34;zipfile&#34;</span><span class="p">):</span>
+        <span class="n">get_Experimental_data</span><span class="o">.</span><span class="n">zipfile</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="s2">&#34;honeycomb_data.zip&#34;</span><span class="p">)</span>
+
+    <span class="n">input_Data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">get_Experimental_data</span><span class="o">.</span><span class="n">zipfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
+                                  <span class="n">unpack</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                  <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">normalizeData</span><span class="p">(</span><span class="n">input_Data</span><span class="p">)</span>
+
+    <span class="n">minIndex</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">qmin</span><span class="p">))</span>
+    <span class="n">maxIndex</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">qmax</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">minIndex</span><span class="p">:</span><span class="n">maxIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+
+<span class="c1">####################################################################</span>
+<span class="c1">#                          Fit Function                            #</span>
+<span class="c1">####################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">relative_difference</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">exp</span> <span class="o">-</span> <span class="n">sim</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">exp</span> <span class="o">+</span> <span class="n">sim</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">result</span><span class="o">*</span><span class="n">result</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">create_Parameter_dictionary</span><span class="p">(</span><span class="n">parameterNames</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">parameterNames</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)}</span>
+
+
+<span class="k">class</span> <span class="nc">FitObjective</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_axis</span><span class="p">,</span> <span class="n">rdata</span><span class="p">,</span> <span class="n">simulationFactory</span><span class="p">,</span> <span class="n">parameterNames</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rdata</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> \
+                                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">simulationFactory</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span> <span class="o">=</span> <span class="n">q_axis</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_r</span> <span class="o">=</span> <span class="n">rdata</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulationFactory</span> <span class="o">=</span> <span class="n">simulationFactory</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rdata</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> \
+                              <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">simulationFactory</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_q</span> <span class="o">=</span> <span class="p">[</span><span class="n">q_axis</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_r</span> <span class="o">=</span> <span class="p">[</span><span class="n">rdata</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulationFactory</span> <span class="o">=</span> <span class="p">[</span><span class="n">simulationFactory</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&#34;Inconsistent parameters&#34;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameterNames</span> <span class="o">=</span> <span class="n">parameterNames</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">fitParameters</span> <span class="o">=</span> <span class="n">create_Parameter_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameterNames</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;FitParamters = {fitParameters}&#34;</span><span class="p">)</span>
+
+        <span class="n">result_metric</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulationFactory</span><span class="p">):</span>
+            <span class="n">sim_result</span> <span class="o">=</span> <span class="n">sim</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">fitParameters</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">array</span><span class="p">()</span>
+            <span class="n">result_metric</span> <span class="o">+=</span> <span class="n">relative_difference</span><span class="p">(</span><span class="n">sim_result</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result_metric</span>
+
+
+<span class="k">def</span> <span class="nf">run_fit_differential_evolution</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="n">rdata</span><span class="p">,</span> <span class="n">simulationFactory</span><span class="p">,</span>
+                                   <span class="n">startParams</span><span class="p">):</span>
+
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="n">par</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">par</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">startParams</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">par</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">startParams</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">parameterNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">startParams</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Bounds = {bounds}&#34;</span><span class="p">)</span>
+
+    <span class="n">objective</span> <span class="o">=</span> <span class="n">FitObjective</span><span class="p">(</span><span class="n">q_axis</span><span class="p">,</span> <span class="n">rdata</span><span class="p">,</span> <span class="n">simulationFactory</span><span class="p">,</span> <span class="n">parameterNames</span><span class="p">)</span>
+
+    <span class="n">chi2_initial</span> <span class="o">=</span> <span class="n">objective</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">differential_evolution</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span>
+                                    <span class="n">bounds</span><span class="p">,</span>
+                                    <span class="n">maxiter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                                    <span class="n">popsize</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span>
+                                    <span class="n">mutation</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+                                    <span class="n">disp</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                    <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+
+    <span class="n">resultParameters</span> <span class="o">=</span> <span class="n">create_Parameter_dictionary</span><span class="p">(</span><span class="n">parameterNames</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">chi2_final</span> <span class="o">=</span> <span class="n">objective</span><span class="p">(</span><span class="n">resultParameters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Initial chi2: {chi2_initial}&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Final chi2: {chi2_final}&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resultParameters</span>
+
+
+<span class="c1">####################################################################</span>
+<span class="c1">#                          Main Function                           #</span>
+<span class="c1">####################################################################</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">fixedParams</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&#34;sld_PyOx_imag&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&#34;sld_Py2_imag&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&#34;sld_Py1_imag&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&#34;sld_SiO2_imag&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&#34;sld_Si_imag&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&#34;sld_SiO2_real&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">3.47</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="s2">&#34;sld_Si_real&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">2.0704</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">&#34;dq&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.018</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;fit&#34;</span><span class="p">:</span>
+
+        <span class="c1"># some sensible start parameters for fitting</span>
+        <span class="n">startParams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&#34;intensity&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.04</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s2">&#34;t_PyOx&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+            <span class="s2">&#34;t_Py2&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span>
+            <span class="s2">&#34;t_Py1&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
+            <span class="s2">&#34;t_SiO2&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+            <span class="s2">&#34;sld_PyOx_real&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.915</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">),</span>
+            <span class="s2">&#34;sld_Py2_real&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="s2">&#34;sld_Py1_real&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">4.62</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="s2">&#34;r_PyOx&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+            <span class="s2">&#34;r_Py2&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+            <span class="s2">&#34;r_Py1&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+            <span class="s2">&#34;r_SiO2&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+            <span class="s2">&#34;r_Si&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+            <span class="s2">&#34;msld_PyOx&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&#34;msld_Py2&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.63</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&#34;msld_Py1&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.64</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&#34;ms150&#34;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">fit</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># result from our own fitting</span>
+        <span class="n">startParams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;intensity&#39;</span><span class="p">:</span> <span class="mf">0.9482344993285265</span><span class="p">,</span>
+            <span class="s1">&#39;t_PyOx&#39;</span><span class="p">:</span> <span class="mf">74.97056190221168</span><span class="p">,</span>
+            <span class="s1">&#39;t_Py2&#39;</span><span class="p">:</span> <span class="mf">61.75823766477464</span><span class="p">,</span>
+            <span class="s1">&#39;t_Py1&#39;</span><span class="p">:</span> <span class="mf">54.058310970786316</span><span class="p">,</span>
+            <span class="s1">&#39;t_SiO2&#39;</span><span class="p">:</span> <span class="mf">23.127048588278402</span><span class="p">,</span>
+            <span class="s1">&#39;sld_PyOx_real&#39;</span><span class="p">:</span> <span class="mf">2.199791584033569</span><span class="p">,</span>
+            <span class="s1">&#39;sld_Py2_real&#39;</span><span class="p">:</span> <span class="mf">4.980316982224387</span><span class="p">,</span>
+            <span class="s1">&#39;sld_Py1_real&#39;</span><span class="p">:</span> <span class="mf">4.612135848532186</span><span class="p">,</span>
+            <span class="s1">&#39;r_PyOx&#39;</span><span class="p">:</span> <span class="mf">31.323366207013787</span><span class="p">,</span>
+            <span class="s1">&#39;r_Py2&#39;</span><span class="p">:</span> <span class="mf">9.083768897940645</span><span class="p">,</span>
+            <span class="s1">&#39;r_Py1&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+            <span class="s1">&#39;r_SiO2&#39;</span><span class="p">:</span> <span class="mf">14.43455709065263</span><span class="p">,</span>
+            <span class="s1">&#39;r_Si&#39;</span><span class="p">:</span> <span class="mf">14.948233893986075</span><span class="p">,</span>
+            <span class="s1">&#39;msld_PyOx&#39;</span><span class="p">:</span> <span class="mf">0.292684104601585</span><span class="p">,</span>
+            <span class="s1">&#39;msld_Py2&#39;</span><span class="p">:</span> <span class="mf">0.5979447434271339</span><span class="p">,</span>
+            <span class="s1">&#39;msld_Py1&#39;</span><span class="p">:</span> <span class="mf">0.56376339230351</span><span class="p">,</span>
+            <span class="s1">&#39;ms150&#39;</span><span class="p">:</span> <span class="mf">1.083311702077648</span>
+        <span class="p">}</span>
+
+        <span class="n">startParams</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">startParams</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">fit</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="n">fixedParams</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fixedParams</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">paramsInitial</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">startParams</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">run_Simulation_300_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run_Simulation_300_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run_Simulation_150_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run_Simulation_150_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sign</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms150</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">qzs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">,</span> <span class="n">scan_size</span><span class="p">)</span>
+    <span class="n">q_300_p</span><span class="p">,</span> <span class="n">r_300_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_300_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span><span class="p">))</span>
+    <span class="n">q_300_m</span><span class="p">,</span> <span class="n">r_300_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_300_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span><span class="p">))</span>
+
+    <span class="n">q_150_p</span><span class="p">,</span> <span class="n">r_150_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_150_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span><span class="p">))</span>
+    <span class="n">q_150_m</span><span class="p">,</span> <span class="n">r_150_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_150_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">paramsInitial</span><span class="p">))</span>
+
+    <span class="n">data_300_p</span> <span class="o">=</span> <span class="n">get_Experimental_data</span><span class="p">(</span><span class="s2">&#34;honeycomb_300_p.dat&#34;</span><span class="p">,</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">)</span>
+    <span class="n">data_300_m</span> <span class="o">=</span> <span class="n">get_Experimental_data</span><span class="p">(</span><span class="s2">&#34;honeycomb_300_m.dat&#34;</span><span class="p">,</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">)</span>
+
+    <span class="n">data_150_p</span> <span class="o">=</span> <span class="n">get_Experimental_data</span><span class="p">(</span><span class="s2">&#34;honeycomb_150_p.dat&#34;</span><span class="p">,</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">)</span>
+    <span class="n">data_150_m</span> <span class="o">=</span> <span class="n">get_Experimental_data</span><span class="p">(</span><span class="s2">&#34;honeycomb_150_m.dat&#34;</span><span class="p">,</span> <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">)</span>
+
+    <span class="n">plot_sld_profile</span><span class="p">(</span><span class="n">paramsInitial</span><span class="p">,</span> <span class="n">f</span><span class="s2">&#34;Honeycomb_Fit_sld_profile_initial.pdf&#34;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">([</span><span class="n">q_300_p</span><span class="p">,</span> <span class="n">q_300_m</span><span class="p">,</span> <span class="n">q_150_p</span><span class="p">,</span> <span class="n">q_150_m</span><span class="p">],</span>
+         <span class="p">[</span><span class="n">r_300_p</span><span class="p">,</span> <span class="n">r_300_m</span><span class="p">,</span> <span class="n">r_150_p</span><span class="p">,</span> <span class="n">r_150_m</span><span class="p">],</span>
+         <span class="p">[</span><span class="n">data_300_p</span><span class="p">,</span> <span class="n">data_300_m</span><span class="p">,</span> <span class="n">data_150_p</span><span class="p">,</span> <span class="n">data_150_m</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+         <span class="p">[</span><span class="s2">&#34;300K $+$&#34;</span><span class="p">,</span> <span class="s2">&#34;300K $-$&#34;</span><span class="p">,</span> <span class="s2">&#34;150K $+$&#34;</span><span class="p">,</span> <span class="s2">&#34;150K $-$&#34;</span><span class="p">],</span>
+         <span class="n">f</span><span class="s2">&#34;Honeycomb_Fit_reflectivity_initial.pdf&#34;</span><span class="p">)</span>
+
+    <span class="c1"># fit and plot fit</span>
+    <span class="k">if</span> <span class="n">fit</span><span class="p">:</span>
+        <span class="n">dataSimTuple</span> <span class="o">=</span> <span class="p">[[</span>
+            <span class="n">data_300_p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data_300_m</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data_150_p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data_150_m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">],</span> <span class="p">[</span><span class="n">data_300_p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_300_m</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_150_p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_150_m</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                        <span class="p">[</span>
+                            <span class="n">run_Simulation_300_p</span><span class="p">,</span> <span class="n">run_Simulation_300_m</span><span class="p">,</span>
+                            <span class="n">run_Simulation_150_p</span><span class="p">,</span> <span class="n">run_Simulation_150_m</span>
+                        <span class="p">]]</span>
+
+        <span class="n">fitResult</span> <span class="o">=</span> <span class="n">run_fit_differential_evolution</span><span class="p">(</span><span class="o">*</span><span class="n">dataSimTuple</span><span class="p">,</span> <span class="n">startParams</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Fit Result:&#34;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">fitResult</span><span class="p">)</span>
+
+        <span class="n">q_300_p</span><span class="p">,</span> <span class="n">r_300_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_300_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">fitResult</span><span class="p">))</span>
+        <span class="n">q_300_m</span><span class="p">,</span> <span class="n">r_300_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_300_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">fitResult</span><span class="p">))</span>
+
+        <span class="n">q_150_p</span><span class="p">,</span> <span class="n">r_150_p</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_150_p</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">fitResult</span><span class="p">))</span>
+        <span class="n">q_150_m</span><span class="p">,</span> <span class="n">r_150_m</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">run_Simulation_150_m</span><span class="p">(</span><span class="n">qzs</span><span class="p">,</span> <span class="n">fitResult</span><span class="p">))</span>
+
+        <span class="n">plot</span><span class="p">([</span><span class="n">q_300_p</span><span class="p">,</span> <span class="n">q_300_m</span><span class="p">,</span> <span class="n">q_150_p</span><span class="p">,</span> <span class="n">q_150_m</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">r_300_p</span><span class="p">,</span> <span class="n">r_300_m</span><span class="p">,</span> <span class="n">r_150_p</span><span class="p">,</span> <span class="n">r_150_m</span><span class="p">],</span>
+             <span class="p">[</span><span class="n">data_300_p</span><span class="p">,</span> <span class="n">data_300_m</span><span class="p">,</span> <span class="n">data_150_p</span><span class="p">,</span> <span class="n">data_150_m</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+             <span class="p">[</span><span class="s2">&#34;300K $+$&#34;</span><span class="p">,</span> <span class="s2">&#34;300K $-$&#34;</span><span class="p">,</span> <span class="s2">&#34;150K $+$&#34;</span><span class="p">,</span> <span class="s2">&#34;150K $-$&#34;</span><span class="p">],</span>
+             <span class="n">f</span><span class="s2">&#34;Honeycomb_Fit_reflectivity_fit.pdf&#34;</span><span class="p">)</span>
+
+        <span class="n">plot_sld_profile</span><span class="p">(</span><span class="n">fitResult</span><span class="p">,</span> <span class="n">f</span><span class="s2">&#34;Honeycomb_Fit_sld_profile_fit.pdf&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+
+  
+  
+  
+
+  
+  
+
+<a class="linktofile" href="https://www.bornagainproject.org/files/python/fitting/ex03_ExtendedExamples/honeycomb/Honeycomb_fit.py"/>
+    Honeycomb_fit.py
+</a>
+
+<a class="linktofile" href="https://www.bornagainproject.org/files/python/fitting/ex03_ExtendedExamples/honeycomb/honeycomb_data.zip"/>
+    Reference data
+</a>
+
+
+      <div class="container next-prev">
+<nav>
+  <ul class="pagination pagination-sm justify-content-end"><li class="page-item ">
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/reflectometry-pt-layer/" class="page-link"><i class="fa fa-chevron-left fa-1g "></i>
+      </a>
+    </li>  
+
+    <li class="page-item ">
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/" class="page-link"><i class="fa fa-chevron-right fa-1g "></i>
+      </a>
+    </li></ul>
+</nav>
+</div>
+
+    </div>
+    <div class="col-md-4">
+    <ul class="doctree">
+    <li class="dd-item parent">
+          <i class="fa liOpened li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/"><span>Documentation</span></a>
+        <ul>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/introduction/"><span>Introduction</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/introduction/functionality/"><span>Functionality overview</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/introduction/architecture/"><span>Architectural overview</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/"><span>Installation</span></a>
+        <ul>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/"><span>Installation on Windows</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/python-anaconda/"><span>Install Python with the Anaconda installer (recommended)</span> </a>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/python-original/"><span>Manual Python installation (advanced)</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/python-original/python-vscode/"><span>VSCode editor</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/python-original/python-pycharm/"><span>PyCharm IDE</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/windows/python-troubleshooting/"><span>Python troubleshooting</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/macos/"><span>Installation on MacOS</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/macos/advanced-tips/"><span>Advanced tips</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-short/"><span>Installation on Linux (short version)</span> </a>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-detailed/"><span>Installation on Linux (detailed version)</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-detailed/third-party/"><span>Install third-party software</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-detailed/get-source/"><span>Get the source</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-detailed/build-and-install/"><span>Build and install BornAgain</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/installation/linux-detailed/first-simulation/"><span>Run a first simulation</span> </a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/gui/"><span>Graphical user interface</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/gui/quick-start/"><span>Quick Start</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/gui/gui-overview/"><span>BornAgain GUI overview</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/gui/gui-fitting/"><span>Fitting in the GUI</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/"><span>Python scripting</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/python-api/"><span>Python API</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/accessing-simulation-results/"><span>Accessing simulation results</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/mpl-config/"><span>Matplotlib configuration</span> </a>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/simulation-classes/"><span>Simulation classes</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/simulation-classes/gisas/"><span>GISAS</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/simulation-classes/off-specular/"><span>Off-specular scattering</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/simulation-classes/reflectometry/"><span>Reflectometry</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/simulation-classes/depth-probe/"><span>Depth-probe</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/materials/"><span>Materials</span> </a>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/detectors/"><span>Detectors</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/detectors/spherical-detector/"><span>Spherical detector</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/detectors/rectangular-detector/"><span>Rectangular detector</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/"><span>Particles</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/particle-positioning/"><span>Particle positioning</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/particle-distribution/"><span>Particle distribution</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/particle-rotation/"><span>Particle rotation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/particle-composition/"><span>Particle composition</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/particles/magnetic-particles/"><span>Magnetic particles</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/"><span>Particle assemblies</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/lattice1d/"><span>1D lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/lattice2d/"><span>2D lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/para_radial/"><span>Radial paracrystal</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/para2d/"><span>2D paracrystal</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/interference/3d-nanoparticle-arrangements/"><span>3D particle assemblies</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/"><span>Fitting</span></a>
+        <ul>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/introduction/"><span>Introduction</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/introduction/basic-concept/"><span>Basic concept</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/introduction/fitting-in-gisas/"><span>Fitting in GISAS</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/introduction/minimal-fitting-example/"><span>Minimal fitting example</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/basic-fitting-tutorial/"><span>Basic fitting tutorial</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/importing-experimental-data/"><span>Importing experimental data</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/instrument-description/"><span>Experiment description</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/scripting/fitting/minimizers/"><span>Minimizer settings</span> </a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item parent">
+          <i class="fa liOpened li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/"><span>Examples</span></a>
+        <ul>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/"><span>Embedded particles</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/cylinders-ba/"><span>Cylinders in Born Approximation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/cylinders-dwba/"><span>Cylinders in Distorted Wave Born Approximation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/size-distribution/"><span>Cylinders with size distribution</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/size-distribution2/"><span>Two types of cylinders with size distribution</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/rotated-pyramids/"><span>Rotated Pyramids</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/cylinders-and-prisms/"><span>Cylinders and Prisms</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/all-formfactors/"><span>All available form factors</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/embedded-particles/magnetic-particles/"><span>Magnetic particles</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/layered-structures/"><span>Layered structures</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/layered-structures/buried-particles/"><span>Buried particles</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/layered-structures/correlated-roughness/"><span>Correlated roughness</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/"><span>Interference functions</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-1d-lattice/"><span>1D lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-square-lattice/"><span>2D square lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-rotated-square-lattice/"><span>2D rotated square lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-square-finite-lattice/"><span>2D square finite lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-lattice-sum-of-rotated/"><span>2D sum of rotated square lattices</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-centered-square-lattice/"><span>2D centered square lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/spheres-at-hex-lattice/"><span>Spheres on Hexagonal Lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/cosine-ripples-at-rect-lattice/"><span>Cosine ripples in a lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/triangular-ripples/"><span>Triangular ripples in a lattice</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-2d-paracrystal/"><span>2D Paracrystal</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/interference-1d-radial-paracrystal/"><span>1D radial paracrystal</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/rectangular-grating/"><span>Rectangular grating</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/approximation-da/"><span>Size-distribution model: decoupling approximation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/approximation-lma/"><span>Size-distribution model: local monodisperse approximation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/interference-functions/approximation-ssca/"><span>Size-distribution model: size-spacing coupling approximation</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/"><span>Complex shapes</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/core-shell-nanoparticles/"><span>Core shell nanoparticles</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/bi-material-cylinders/"><span>Cylinders with two materials</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/particles-crossing-interface/"><span>Particles crossing an interface</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/hexagonal-lattice-with-basis/"><span>Hexagonal lattices with basis</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/meso-crystal/"><span>Mesocrystal</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/large-particles-formfactor/"><span>Large particle formfactor</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/complex-shapes/custom-formfactor/"><span>Custom formfactor</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/"><span>Beam and detector</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/beam-divergence/"><span>Beam divergence</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/constant-background/"><span>Adding constant background</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/detector-resolution/"><span>Detector resolution function</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/offspecular-simulation/"><span>Off-Specular</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/resonator-offspec-setup/"><span>Off-Specular - Resonators</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/beam-and-detector/rectangular-detector/"><span>Rectangular detector</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/"><span>Reflectometry</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/specular-simulation-with-roughness/"><span>Simulation with a rough sample</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/roughness-model/"><span>Different roughness models</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/footprint-correction/"><span>Footprint correction</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/beam-angular-divergence/"><span>Beam Angular Spread</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/beam-full-divergence/"><span>Beam Wavelength Spread</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/material-profile/"><span>Material profile</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/material-profile-with-particles/"><span>Material profile with particles</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/time-of-flight/"><span>Time of Flight Reflectometry</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/reflectometry/tofr-with-resolution/"><span>ToF - Resolution effects</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/"><span>Polarized reflectometry</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/basic-polarized-reflectometry/"><span>Basic polarized reflectometry</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spin-flip/"><span>Spin-flip reflectivity</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/no-analyzer/"><span>Without analyzer</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-non-perfect-ap/"><span>Non-perfect polarizer &#43; analyzer</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry/"><span>Spin asymmetry example</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/polarized-reflectometry/polarized-spinasymmetry-fit/"><span>Spin asymmetry fit example</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item parent">
+          <i class="fa liOpened li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/"><span>Fitting</span></a>
+        <ul>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/basic/"><span>Basic examples</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/basic/minimal-fit-example/"><span>Minimal fit example</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/basic/basic-fit-tutorial/"><span>Basic fit example</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/basic/minimizer-settings/"><span>Minimizer settings</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/basic/consecutive-fitting/"><span>Consecutive fitting</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/advanced/"><span>Advanced examples</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/advanced/fit-with-masks/"><span>Fitting with masks</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/advanced/fit-along-slices/"><span>Fitting along slices</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/advanced/find-background/"><span>Find background</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/advanced/multiple-datasets/"><span>Simultaneous fit of two datasets</span> </a>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item parent">
+          <i class="fa liOpened li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/"><span>Extended examples</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/fit-specular-data/"><span>Fitting reflectometry data</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/custom-objective-function/"><span>Custom objective function</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/experiment-at-galaxi/"><span>Experiment at GALAXI</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/fit-with-uncertainties/"><span>Considering uncertainties</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/external-minimizer/"><span>External minimizer</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/external-minimizer-with-plotting/"><span>External minimizer: plotting</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/real-life-reflectometry/"><span>Reflectometry: Real life fitting</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/reflectometry-pt-layer/"><span>Reflectometry: Fit Pt layer</span> </a>
+    </li>
+    <li class="dd-item active">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/fitting/extended/reflectometry-honeycomb/"><span>Reflectometry: Fit honeycomb</span> </a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/"><span>Miscellaneous</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/accessing-simulation-results/"><span>Accessing simulation results</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/find-peaks/"><span>Finding Intensity Peaks</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/depth-probe/"><span>Depth-probe</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/axes-in-different-units/"><span>Plotting with axes in different units</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/sample-parameters/"><span>Working with sample parameters</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/polarized-sans/"><span>Polarized SANS</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/boxes-with-specular-peak/"><span>Boxes With Specular Peak</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/cylinders-in-average-layer/"><span>Cylinders in Averaged Layer</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/examples/miscellaneous/half-spheres-in-average-top-layer/"><span>Hemispheres in Averaged Layer</span> </a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="dd-item"><i class="fa liClosed li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/"><span>How to</span></a>
+        <ul>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/announcements/"><span>Get announcements</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/troubleshooting/"><span>Solve known problems</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/get-help/"><span>Request help or report bugs</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/contribute-to-documentation/"><span>Contribute to this documentation</span> </a>
+    </li>
+    <li class="dd-item">
+      <i class="fa liSingle li-item-icon"></i>
+      <a href="https://www.bornagainproject.org/documentation/howto/cite/"><span>Cite BornAgain</span> </a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+
+    </div>
+  </div>
+</div>    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-inline text-center">
+                    
+                      <li class="list-inline-item social">
+                        <a href="mailto:contact@bornagainproject.org">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li class="list-inline-item social">
+                      <a href="https://github.com/scgmlz/BornAgain">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted"></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://www.bornagainproject.org/js/bootstrap.min.js"></script>
+    
+    <script src="https://www.bornagainproject.org/js/baguetteBox.min.js"></script>
+    <script>
+      baguetteBox.run('.galleryscg');
+    </script>    
+    
+    <script src="https://www.bornagainproject.org/js/theme.js"></script>
+    <script src="https://www.bornagainproject.org/assets/js/bornagain.js"></script>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-120020802-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+</body>
+</html>
+
+
