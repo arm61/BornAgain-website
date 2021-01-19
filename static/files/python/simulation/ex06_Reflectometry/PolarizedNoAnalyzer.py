@@ -1,12 +1,12 @@
 """
-An example of computing splin-flip reflectivity from 
+An example of computing splin-flip reflectivity from
 a magnetized sample.
 """
 import numpy
 import matplotlib.pyplot as plt
 
 import bornagain as ba
-from bornagain import deg, angstrom
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -14,38 +14,34 @@ def get_sample():
     Defines sample and returns it
     """
 
-    # creating materials
-    magnetizationMagnitude = 1e8
-    angle = 30*deg
-    magnetizationVector = ba.kvector_t(magnetizationMagnitude*numpy.sin(angle),
-                                       magnetizationMagnitude*numpy.cos(angle),
-                                       0)
+    # Define materials
+    material_Ambient = ba.MaterialBySLD("Ambient", 0.0, 0.0)
+    magnetic_field = kvector_t(50000000, 86602540.3784, 0)
+    material_Layer = ba.MaterialBySLD("Layer", 0.0001, 1e-08, magnetic_field)
+    material_Substrate = ba.MaterialBySLD("Substrate", 7e-05, 2e-06)
 
-    m_ambient = ba.MaterialBySLD("Ambient", 0.0, 0.0)
-    m_layer_mat = ba.MaterialBySLD("Layer", 1e-4, 1e-8, magnetizationVector)
-    m_substrate = ba.MaterialBySLD("Substrate", 7e-5, 2e-6)
+    # Define layers
+    layer_1 = ba.Layer(material_Ambient)
+    layer_2 = ba.Layer(material_Layer, 10.0*nm)
+    layer_3 = ba.Layer(material_Substrate)
 
-    # creating layers
-    ambient_layer = ba.Layer(m_ambient)
-    layer = ba.Layer(m_layer_mat, 10)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+    sample.addLayer(layer_3)
 
-    # creating multilayer
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(ambient_layer)
-    multi_layer.addLayer(layer)
-    multi_layer.addLayer(substrate_layer)
-
-    return multi_layer
+    return sample
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
     scan = ba.AngularSpecScan(1.54*angstrom, scan_size, 0.0*deg, 5.0*deg)
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -54,14 +50,13 @@ def run_simulation(polarization=ba.kvector_t(0.0, 1.0, 0.0), analyzer=None):
     Runs simulation and returns its result.
     """
     sample = get_sample()
-    simulation = get_simulation()
+    simulation = get_simulation(sample)
 
     # adding polarization and analyzer operator
-    simulation.setBeamPolarization(polarization)
+    simulation.beam().setPolarization(polarization)
     if analyzer:
         simulation.setAnalyzerProperties(analyzer, 1.0, 0.5)
 
-    simulation.setSample(sample)
     simulation.runSimulation()
     result = simulation.result()
     return result.axis(), result.array()

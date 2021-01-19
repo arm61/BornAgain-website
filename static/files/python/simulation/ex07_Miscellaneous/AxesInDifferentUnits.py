@@ -3,7 +3,8 @@ In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
@@ -12,65 +13,57 @@ def get_sample():
     """
     Returns a sample with uncorrelated cylinders on a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define form factors
+    ff = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_rectangular_detector():
-    """
-    Returns rectangular detector representing our PILATUS detector
-    """
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
 
+    # PILATUS detector
     detector_distance = 2000.0  # in mm
     pilatus_pixel_size = 0.172  # in mm
     pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
-
     width = pilatus_npx*pilatus_pixel_size
     height = pilatus_npy*pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
     detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0)
-    return detector
 
-
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setDetector(get_rectangular_detector())
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Run simulation and returns results for different detector units.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(get_sample())
     simulation.runSimulation()
-
-    result = simulation.result()
-
-    return result
+    return simulation.result()
 
 
 def plot(result):
@@ -86,14 +79,14 @@ def plot(result):
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
 
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      title="In default units",
                      xlabel=r'$X_{mm}$',
                      ylabel=r'$Y_{mm}$',
                      zlabel=None)
 
     plt.subplot(2, 2, 2)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.NBINS,
                      title="In number of bins",
                      xlabel=r'$X_{nbins}$',
@@ -101,7 +94,7 @@ def plot(result):
                      zlabel=None)
 
     plt.subplot(2, 2, 3)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.DEGREES,
                      title="In degs",
                      xlabel=r'$\phi_f ^{\circ}$',
@@ -109,7 +102,7 @@ def plot(result):
                      zlabel=None)
 
     plt.subplot(2, 2, 4)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.QSPACE,
                      title="Q-space",
                      xlabel=r'$Q_{y} [1/nm]$',

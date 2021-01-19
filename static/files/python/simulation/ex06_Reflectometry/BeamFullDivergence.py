@@ -50,7 +50,7 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
@@ -64,21 +64,13 @@ def get_simulation(scan_size=500):
 
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
+    simulation.setSample(sample)
 
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns it.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    results = run_simulation()
-    ba.plot_simulation_result(results)
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

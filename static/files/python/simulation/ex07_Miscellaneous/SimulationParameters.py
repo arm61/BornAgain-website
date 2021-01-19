@@ -7,7 +7,7 @@ these parameters on the fly during runtime.
 
 from __future__ import print_function
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -15,41 +15,48 @@ def get_sample():
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     Parameter set is fixed.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
-    prism_ff = ba.FormFactorPrism3(5*nm, 5*nm)
-    prism = ba.Particle(m_particle, prism_ff)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
+    # Define form factors
+    ff_1 = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
+    ff_2 = ba.FormFactorPrism3(5.0*nm, 5.0*nm)
+
+    # Define particles
+    particle_1 = ba.Particle(material_Particle, ff_1)
+    particle_2 = ba.Particle(material_Particle, ff_2)
+
+    # Define interference functions
+    iff = ba.InterferenceFunctionNone()
+
+    # Define particle layouts
     layout = ba.ParticleLayout()
-    layout.addParticle(cylinder, 0.5)
-    layout.addParticle(prism, 0.5)
-    interference = ba.InterferenceFunctionNone()
-    layout.setInterferenceFunction(interference)
+    layout.addParticle(particle_1, 0.5)
+    layout.addParticle(particle_2, 0.5)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
 
-    # vacuum layer with particles and substrate form multi layer
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(layout)
-    substrate_layer = ba.Layer(m_substrate, 0)
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
+    det = ba.SphericalDetector(100, -1*deg, 1*deg, 100, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     return simulation
 
 
@@ -58,9 +65,7 @@ def run_simulation():
     Runs simulations for the sample with different sample parameters.
     """
 
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(get_sample())
 
     print("The tree structure of the simulation")
     print(simulation.treeToString())
@@ -109,9 +114,10 @@ def plot(results):
 
     for nplot, hist in results.items():
         plt.subplot(2, 2, nplot + 1)
-        ba.plot_colormap(hist, zlabel="", cmap='jet', aspect='auto')
+        ba.plot_colormap(hist, zlabel="")
     plt.tight_layout()
-    plt.show()
+    if not "NOSHOW" in os.environ:
+        plt.show()
 
 
 if __name__ == '__main__':

@@ -5,7 +5,8 @@ The standard "Cylinders in DWBA" sample is used to setup the simulation.
 import math
 import random
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
@@ -14,36 +15,44 @@ def get_sample():
     """
     Returns a sample with uncorrelated cylinders on a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define form factors
+    ff = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns a GISAXS simulation with beam and detector defined.
     """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(201, -2.0*deg, 2.0*deg, 201, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+05)
+    beam = ba.Beam(1e5, 1.0*angstrom, ba.Direction(0.2*deg, 0*deg))
+    det = ba.SphericalDetector(201, -2*deg, 2*deg, 201, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     return simulation
 
 
@@ -61,15 +70,12 @@ def get_noisy_image(hist):
     return result
 
 
-def plot_histogram(hist, zmin=None, zmax=None):
+def plot_histogram(hist, **kwargs):
     ba.plot_histogram(hist,
                       xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
                       zlabel="",
-                      zmin=zmin,
-                      zmax=zmax,
-                      cmap='jet',
-                      aspect='auto')
+                      **kwargs)
 
 
 def get_relative_difference(hist):
@@ -120,17 +126,17 @@ def plot(hist):
     plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    plot_histogram(hist)
+    ba_plot.plot_histogram(hist)
     plt.title("Intensity as colormap")
 
     plt.subplot(2, 2, 2)
     crop = hist.crop(-1.0, 0.5, 1.0, 1.0)
-    plot_histogram(crop)
+    ba_plot.plot_histogram(crop)
     plt.title("Cropping")
 
     plt.subplot(2, 2, 3)
     reldiff = get_relative_difference(hist)
-    plot_histogram(reldiff, zmin=1e-03, zmax=10)
+    ba_plot.plot_histogram(reldiff, intensity_min=1e-03, intensity_max=10)
     plt.title("Relative difference")
 
     plt.subplot(2, 2, 4)
@@ -152,17 +158,13 @@ def plot(hist):
     plt.show()
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
+def simulate_and_plot():
     sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
     simulation.runSimulation()
-    return simulation.result().histogram2d()
+    hist = simulation.result().histogram2d()
+    plot(hist)
 
 
 if __name__ == '__main__':
-    result = run_simulation()
-    plot(result)
+    simulate_and_plot()
