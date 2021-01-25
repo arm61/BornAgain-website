@@ -21,6 +21,18 @@ source <install_dir>/bin/thisbornagain.sh
 
 This command can also be placed in your `.bashrc` file (`.profile` for MacOS) to avoid having to run this command for each terminal session.
 
+{{< alert theme="info" >}}
+**Note for MacOS users**
+Additionally, `libcerf` needs to be manually downloaded and included in the BornAgain installation. 
+This is achieved with the following commands: 
+
+```bash
+wget http://apps.jcns.fz-juelich.de/src/MacLibs/cerf-1.14-Darwin.zip
+unzip cerf-1.14-Darwin.zip
+mv cerf-1.14-Darwin/lib/* /usr/local/lib/BornAgain-1.18/
+mv cerf-1.14-Darwin/include/* /usr/local/include/BornAgain-1.18/
+```
+
 #### Running the first Python simulation
 
 In your installation directory you will find the following directory structure:
